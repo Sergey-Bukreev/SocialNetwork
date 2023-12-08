@@ -1,15 +1,20 @@
 import React from 'react';
 import classes from "./MyPosts.module.css"
-import {Post} from "../Post/Post";
+import {Post} from "./Post/Post";
 
 
 export const MyPosts:React.FC = () => {
     return (
-        <div>
-            My Post
+        <div className={classes.postsBlock}>
+           <h3>My Post</h3>
              <div>
-                <textarea></textarea>
-                 <button>Add Post</button>
+                <div>
+                    <textarea></textarea>
+                </div>
+                 <div>
+                     <button>Add Post</button>
+                 </div>
+
              </div>
                 <div className={classes.posts}>
                     <Post message={"Hi, how are you"} likeCount={15} />
