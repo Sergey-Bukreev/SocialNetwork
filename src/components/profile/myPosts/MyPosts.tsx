@@ -1,17 +1,13 @@
 import React from 'react';
 import classes from "./MyPosts.module.css"
-import {Post} from "./Post/Post";
+import {Post, PostPropsType} from "./Post/Post";
 
+type MyPostsPropsType = {
+    posts:Array<PostPropsType>
+}
+export const MyPosts:React.FC<MyPostsPropsType> = (props:MyPostsPropsType) => {
 
-export const MyPosts:React.FC = () => {
-
-    let PostsData:{id:number, message:string, likeCount:number}[] = [
-        {id: 1, message: "Hi, how are you", likeCount: 15},
-        {id: 2, message: "Its my first post", likeCount: 25},
-        {id: 3, message: "Have a good Time", likeCount: 22}
-    ]
-
-    let postElement = PostsData.map((el) =><Post message={el.message} likeCount={el.likeCount}/>)
+    let postElement = props.posts.map((el) =><Post message={el.message} likeCount={el.likeCount}/>)
 
     return (
         <div className={classes.postsBlock}>
