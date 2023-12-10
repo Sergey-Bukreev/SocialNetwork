@@ -11,7 +11,7 @@ export const Profile:React.FC<ProfilePropsType> = (props:ProfilePropsType) => {
     return (
         <div className={classes.content}>
             <ProfileInfo />
-            <MyPosts posts={props.posts}/>
+            <MyPosts postsData={props.posts}/>
         </div>
 
     );

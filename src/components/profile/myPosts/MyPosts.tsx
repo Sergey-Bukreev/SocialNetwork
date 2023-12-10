@@ -3,11 +3,11 @@ import classes from "./MyPosts.module.css"
 import {Post, PostPropsType} from "./Post/Post";
 
 type MyPostsPropsType = {
-    posts:Array<PostPropsType>
+    postsData:Array<PostPropsType>
 }
 export const MyPosts:React.FC<MyPostsPropsType> = (props:MyPostsPropsType) => {
 
-    let postElement = props.posts.map((el) =><Post message={el.message} likeCount={el.likeCount}/>)
+    let postElement = props.postsData.map((el) =><Post message={el.message} likeCount={el.likeCount}/>)
 
     return (
         <div className={classes.postsBlock}>
