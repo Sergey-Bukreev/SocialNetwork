@@ -2,22 +2,33 @@ import React from 'react';
 import classes from "./MyPosts.module.css"
 import {Post, PostPropsType} from "./Post/Post";
 
-type MyPostsPropsType = {
+export type MyPostsPropsType = {
     postsData:Array<PostPropsType>
+    addPost:(postMessage:string)=>void
+
+
 }
 export const MyPosts:React.FC<MyPostsPropsType> = (props:MyPostsPropsType) => {
 
-    let postElement = props.postsData.map((el) =><Post message={el.message} likeCount={el.likeCount}/>)
+    let postElement:JSX.Element[] = props.postsData.map((el:PostPropsType) =><Post message={el.message} likeCount={el.likeCount}/>)
+
+    let newPostElement:React.RefObject<any> = React.createRef()
+    let addPost = (postMessage:any):void => {
+        let text = newPostElement.current.value;
+        props.addPost(text)
+        newPostElement.current.value = "";
+        
+    }
 
     return (
         <div className={classes.postsBlock}>
            <h3>My Post</h3>
              <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                  <div>
-                     <button>Add Post</button>
+                     <button onClick={addPost}>Add Post</button>
                  </div>
 
              </div>

@@ -1,3 +1,4 @@
+import {rerenderEntireTree} from "../render";
 
 
 export let State = {
@@ -20,4 +21,14 @@ export let State = {
         {id: 2, message: "Its my first post", likeCount: 25},
         {id: 3, message: "Have a good Time", likeCount: 22}
     ]
+}
+
+export const addPost = (postMessage:string) => {
+    let newPost:{id:number, message:string, likeCount:number} = {
+        id: 5,
+        message: postMessage,
+        likeCount: 0
+    }
+    State.postsData.push(newPost)
+    rerenderEntireTree(State)
 }
