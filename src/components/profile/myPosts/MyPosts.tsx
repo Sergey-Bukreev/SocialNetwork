@@ -5,6 +5,8 @@ import {Post, PostPropsType} from "./Post/Post";
 export type MyPostsPropsType = {
     postsData:Array<PostPropsType>
     addPost:(postMessage:string)=>void
+    updateNewPostText: (newText:string) => void
+    newPostText: string
 
 
 }
@@ -13,11 +15,14 @@ export const MyPosts:React.FC<MyPostsPropsType> = (props:MyPostsPropsType) => {
     let postElement:JSX.Element[] = props.postsData.map((el:PostPropsType) =><Post message={el.message} likeCount={el.likeCount}/>)
 
     let newPostElement:React.RefObject<any> = React.createRef()
-    let addPost = (postMessage:any):void => {
+    let addPost = ():void => {
         let text = newPostElement.current.value;
         props.addPost(text)
-        newPostElement.current.value = "";
-        
+
+    }
+    let onPostChange = () => {
+        let text = newPostElement.current.value
+        props.updateNewPostText(text)
     }
 
     return (
@@ -25,7 +30,7 @@ export const MyPosts:React.FC<MyPostsPropsType> = (props:MyPostsPropsType) => {
            <h3>My Post</h3>
              <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText} />
                 </div>
                  <div>
                      <button onClick={addPost}>Add Post</button>

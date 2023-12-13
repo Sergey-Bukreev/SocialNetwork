@@ -19,16 +19,24 @@ export let State = {
     postsData: [
         {id: 1, message: "Hi, how are you", likeCount: 15},
         {id: 2, message: "Its my first post", likeCount: 25},
-        {id: 3, message: "Have a good Time", likeCount: 22}
-    ]
+        {id: 3, message: "Have a good Time", likeCount: 22},
+
+    ],
+    newPostText: "Hello"
 }
 
-export const addPost = (postMessage:string) => {
+export let addPost = () => {
     let newPost:{id:number, message:string, likeCount:number} = {
         id: 5,
-        message: postMessage,
+        message: State.newPostText,
         likeCount: 0
     }
     State.postsData.push(newPost)
+    State.newPostText = ""
     rerenderEntireTree(State)
+}
+
+export let updateNewPostText = (newText:string) => {
+State.newPostText= newText;
+rerenderEntireTree(State)
 }
