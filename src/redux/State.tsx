@@ -1,7 +1,9 @@
-import {rerenderEntireTree} from "../render";
 
 
-export let State = {
+let rerenderEntireTree = (state:any)=> {
+    console.log("state change")
+}
+export let state = {
     dialogsData: [
         {id: 1, name: "Dimych"},
         {id: 2, name: "Sveta"},
@@ -25,18 +27,21 @@ export let State = {
     newPostText: "Hello"
 }
 
-export let addPost = () => {
+export const addPost = () => {
     let newPost:{id:number, message:string, likeCount:number} = {
         id: 5,
-        message: State.newPostText,
+        message: state.newPostText,
         likeCount: 0
     }
-    State.postsData.push(newPost)
-    State.newPostText = ""
-    rerenderEntireTree(State)
+    state.postsData.push(newPost)
+    state.newPostText = ""
+    rerenderEntireTree(state)
+}
+export const subscribe = (observer:(state:any)=>void) => {
+    rerenderEntireTree = observer
 }
 
-export let updateNewPostText = (newText:string) => {
-State.newPostText= newText;
-rerenderEntireTree(State)
+export const updateNewPostText = (newText:string) => {
+state.newPostText= newText;
+rerenderEntireTree(state)
 }
