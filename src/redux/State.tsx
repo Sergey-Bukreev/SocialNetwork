@@ -1,7 +1,26 @@
+export type newPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
+export type addPostAction = { type: "ADD-POST" }
+export type anotherActionType = { type: "Another-Action", anotherKey: string }
+export type Action = newPostTextAction | anotherActionType | addPostAction
+
+interface Post {id: number;message: string;likeCount: number;}
+interface State {
+    dialogsData: { id: number; name: string }[];
+    messageData: { id: number; message: string }[];
+    postsData: Post[];
+    newPostText: string;
+}
+
+interface Store {
+    _state: State;
+    getState(): State;
+    _callSubscriber:(state: State)=> void;
+    subscribe:(observer: (state: State) => void)=> void;
+    dispatch:(action: Action) => void;
+}
 
 
-
-let store = {
+let store:Store = {
      _state : {
         dialogsData: [
             {id: 1, name: "Dimych"},
@@ -29,26 +48,30 @@ let store = {
     _callSubscriber (state:any) {
         console.log("state change")
     },
-
-    addPost ()  {
-        let newPost:{id:number, message:string, likeCount:number} = {
-            id: 5,
-            message: this._state.newPostText,
-            likeCount: 0
-        }
-        this._state.postsData.push(newPost)
-        this._state.newPostText = ""
-        this._callSubscriber(this._state)
-    },
-    updateNewPostText  (newText:string)  {
-        this._state.newPostText= newText;
-        this._callSubscriber(this._state)
-    },
     subscribe  (observer:(state:any)=>void)  {
         this._callSubscriber = observer
     },
-}
 
+
+    dispatch (action:Action) {
+         if(action.type === "ADD-POST")
+         {let newPost:{id:number, message:string, likeCount:number} = {
+             id: 5,
+             message: this._state.newPostText,
+             likeCount: 0
+         }
+             this._state.postsData.push(newPost)
+             this._state.newPostText = ""
+             this._callSubscriber(this._state)}
+
+         else if(action.type === "UPDATE-NEW-POST-TEXT")
+         { this._state.newPostText= action.newText;
+             this._callSubscriber(this._state)}
+    }
+
+}
+export  const addPostActionCreator = ():addPostAction=> {return {type:"ADD-POST"}}
+export  const updateNewPostTextActionCreator = (text:string):newPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text}}
 export default  store
 
 
