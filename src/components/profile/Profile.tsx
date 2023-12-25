@@ -2,13 +2,13 @@ import React from 'react';
 import classes from "./Profile.module.css"
 import {MyPosts} from "./myPosts/MyPosts";
 import {ProfileInfo} from "./profileInfo/ProfileInfo";
-import {PostPropsType} from "./myPosts/Post/Post";
 import {Action} from "../../redux/State";
+import {IPost} from "../../redux/profileReducer";
 
 
 
 export type ProfilePropsType = {
-    posts :Array<PostPropsType>
+    posts :IPost[];
     dispatch:(action: Action) => void
     newPostText:string
 
