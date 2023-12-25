@@ -24,6 +24,7 @@ type AppPropsType = {
     dialogsData: Array<DialogItemPropsType>
     messageData: Array<MessagePropsType>
     newPostText:string
+    newMessageText:string
 
 
 }
@@ -35,7 +36,7 @@ const App = (props:StatePropsType) => {
            <Header />
            <Navbar />
            <div className="app-wrapper-content">
-               <Route render = {() => <Dialogs dialogData={props.appState.dialogsData} messageData={props.appState.messageData}/>} path={"/dialogs"} />
+               <Route render = {() => <Dialogs dialogData={props.appState.dialogsData} messageData={props.appState.messageData} dispatch={props.dispatch} newMessageText={props.appState.newMessageText}/>} path={"/dialogs"} />
                <Route render = {() => <Profile posts={props.appState.postsData} dispatch={props.dispatch} newPostText={props.appState.newPostText}  />} path={"/profile"} />
 
            </div>
