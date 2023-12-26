@@ -7,9 +7,16 @@ export type ProfileState = {
     newPostText: string;
 }
  export let initialState: ProfileState = {
-    postsData: [],
-    newPostText: "",
+     postsData: [
+         {id: 1, message: "Hi, how are you", likeCount: 15},
+         {id: 2, message: "Its my first post", likeCount: 25},
+         {id: 3, message: "Have a good Time", likeCount: 22},
+
+     ],
+     newPostText: "Hello",
 }
+export  const addPostActionCreator = ():AddPostAction=> {return {type:"ADD-POST"}}
+export  const updateNewPostTextActionCreator = (text:string):NewPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text}}
 export const profileReducer = (profileState: ProfileState=initialState, action: ProfileAction):ProfileState => {
     if(action.type === "ADD-POST")
     {
