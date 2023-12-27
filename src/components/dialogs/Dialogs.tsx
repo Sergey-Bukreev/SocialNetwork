@@ -1,48 +1,42 @@
 import React from 'react';
-import { DialogItem, DialogItemPropsType } from "./dialogItem/DialogItem";
-import { Message, MessagePropsType } from "./Message/Message";
+import { DialogItem } from "./dialogItem/DialogItem";
+import { Message } from "./Message/Message";
 import classes from "./Dialogs.module.css";
-import {Action} from "redux";
-import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogReducer";
+import {DialogState} from "../../redux/dialogReducer";
 
 type DialogsPropsType = {
-    dialogData: Array<DialogItemPropsType>;
-    messageData: Array<MessagePropsType>;
-    dispatch: (action: Action) => void;
-    newMessageText: string;
+    dialogsPage:DialogState
+    updateNewMessageText:(messageText:string) => void
+    sendMessage: ()=> void
 };
 
 export const Dialogs: React.FC<DialogsPropsType> = (props: DialogsPropsType) => {
-    let dialogsElements: JSX.Element[] = props.dialogData.map((el) => (
+    let dialogsElements: JSX.Element[] = props.dialogsPage.dialogsData.map((el) => (
         <DialogItem key={el.id} name={el.name} id={el.id} />
     ));
 
-    let messagesElements: JSX.Element[] = props.messageData.map((el, index) => (
+    let messagesElements: JSX.Element[] = props.dialogsPage.messageData.map((el, index) => (
         <Message key={index} message={el.message} />
     ));
 
     const newMessageElement: React.RefObject<HTMLTextAreaElement> = React.createRef();
 
     const sendMessage = (): void => {
-        let messageText = newMessageElement.current?.value;
-        if (messageText) {
-            props.dispatch(sendMessageActionCreator());
-        }
+        props.sendMessage()
     };
 
-    const onMessageChange = (): void => {
+    const onMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+        if(newMessageElement.current){
         let messageText = newMessageElement.current?.value;
-        if (messageText) {
-            props.dispatch(updateNewMessageTextActionCreator(messageText));
-        }
-    };
+        props.updateNewMessageText(messageText)
+    }};
 
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialog}>{dialogsElements}</div>
             <div className={classes.messages}>{messagesElements}</div>
             <div className={classes.sendMessageWrapper}>
-                <textarea ref={newMessageElement} onChange={onMessageChange} value={props.newMessageText} />
+                <textarea ref={newMessageElement} onChange={onMessageChange} value={props.dialogsPage.newMessageText} />
                 <button onClick={sendMessage}>Отправить</button>
             </div>
         </div>

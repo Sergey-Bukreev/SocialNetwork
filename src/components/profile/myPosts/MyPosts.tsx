@@ -1,31 +1,31 @@
 import React from 'react';
 import classes from "./MyPosts.module.css";
-import { Post, PostPropsType } from "./Post/Post";
-import { Action } from "redux";
-import {addPostActionCreator, IPost, updateNewPostTextActionCreator} from "../../../redux/profileReducer";
+import { Post } from "./Post/Post";
+import {IPost, ProfileState} from "../../../redux/profileReducer";
+
 
 export type MyPostsPropsType = {
-    postsData: IPost[];
-    dispatch: (action: Action) => void;
-    newPostText:string
+    updateNewPostText: (text: string) => void;
+    addPost: () => void;
+    profilePage:ProfileState
 };
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props: MyPostsPropsType) => {
 
-    const postElement: JSX.Element[] = props.postsData.map((el: PostPropsType) => <Post message={el.message} likeCount={el.likeCount} />);
+    const postElement: JSX.Element[] = props.profilePage.postsData.map((el: IPost) => (
+        <Post key={el.id} message={el.message} likeCount={el.likeCount} />
+    ));
 
     const newPostElement: React.RefObject<HTMLTextAreaElement> = React.createRef();
 
-    let addPost = (): void => {
-        let text = newPostElement.current?.value;
-        if (text) {
-            props.dispatch(addPostActionCreator());
-        }
+    const onAddPost = (): void => {
+        props.addPost();
     };
-    let onPostChange = (): void => {
-        let text = newPostElement.current?.value;
-        if (text) {
-            props.dispatch(updateNewPostTextActionCreator(text));
+
+    const onPostChange = (): void => {
+        if (newPostElement.current) {
+            let text: string = newPostElement.current.value;
+            props.updateNewPostText(text);
         }
     };
 
@@ -34,10 +34,10 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props: MyPostsPropsType) => 
             <h3>My Post</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText} />
+                    <textarea ref={newPostElement} onChange={onPostChange} value={props.profilePage.newPostText} />
                 </div>
                 <div>
-                    <button onClick={addPost}>Add Post</button>
+                    <button onClick={onAddPost}>Add Post</button>
                 </div>
             </div>
             <div className={classes.posts}>
