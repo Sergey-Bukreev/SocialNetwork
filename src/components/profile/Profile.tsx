@@ -12,7 +12,7 @@ export const Profile:React.FC<ProfilePropsType> = (props:ProfilePropsType) => {
     return (
         <div className={classes.content}>
             <ProfileInfo />
-            <MyPostsContainer  dispatch={props.dispatch}  profilePage={props.profilePage}/>
+            <MyPostsContainer/>
         </div>
 
     );

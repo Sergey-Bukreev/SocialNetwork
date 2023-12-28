@@ -26,18 +26,21 @@ const initialState:DialogState = {
 }
 export const sendMessageActionCreator = ():SendMessageAction => {return {type:"SEND-MESSAGE"}}
 export  const updateNewMessageTextActionCreator = (messageText:string):NewMessageTextAction => {return {type:"UPDATE-NEW-MESSAGE-TEXT", newMessage:messageText}}
-export const dialogReducer = (dialogState:DialogState=initialState, action:DialogAction):DialogState=> {
+export const dialogReducer = (dialogState: DialogState = initialState, action: DialogAction): DialogState => {
+    let updateDialogState = { ...dialogState };
 
-    if(action.type === "SEND-MESSAGE")
-    {let newMessage:{id:number, message:string}= {id:5, message: dialogState.newMessageText}
-        dialogState.messageData.push(newMessage)
-        dialogState.newMessageText = ""
-        }
+    switch (action.type) {
+        case "SEND-MESSAGE":
+            let newMessage: { id: number; message: string } = { id: 5, message: dialogState.newMessageText };
+            updateDialogState.messageData = [...dialogState.messageData, newMessage];
+            updateDialogState.newMessageText = "";
+            break;
+        case "UPDATE-NEW-MESSAGE-TEXT":
+            updateDialogState.newMessageText = action.newMessage;
+            break;
+        default:
+            return updateDialogState;
+    }
 
-    else if(action.type === "UPDATE-NEW-MESSAGE-TEXT")
-    { dialogState.newMessageText= action.newMessage;
-
-}
-
-    return dialogState
-}
+    return updateDialogState;
+};

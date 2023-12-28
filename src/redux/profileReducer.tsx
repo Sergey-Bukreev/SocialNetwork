@@ -17,22 +17,26 @@ export type ProfileState = {
 }
 export  const addPostActionCreator = ():AddPostAction=> {return {type:"ADD-POST"}}
 export  const updateNewPostTextActionCreator = (text:string):NewPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text}}
-export const profileReducer = (profileState: ProfileState=initialState, action: ProfileAction):ProfileState => {
-    if(action.type === "ADD-POST")
-    {
-        let newPost:{id:number, message:string, likeCount:number} = {
-        id: 5,
-        message: profileState.newPostText,
-        likeCount: 0
-        }
-        profileState.postsData.push(newPost)
-        profileState.newPostText = ""
+export const profileReducer = (profileState: ProfileState = initialState, action: ProfileAction): ProfileState => {
+    let updateProfileState = { ...profileState };
+
+    switch (action.type) {
+        case "ADD-POST":
+            let newPost: IPost = {
+                id: 5,
+                message: profileState.newPostText,
+                likeCount: 0
+            };
+
+            updateProfileState.postsData = [...profileState.postsData, newPost];
+            updateProfileState.newPostText = "";
+            break;
+        case "UPDATE-NEW-POST-TEXT":
+            updateProfileState.newPostText = action.newText;
+            break;
+        default:
+            return updateProfileState;
     }
 
-
-    else if(action.type === "UPDATE-NEW-POST-TEXT") {profileState.newPostText = action.newText;}
-
-
-
-    return profileState
-}
+    return updateProfileState;
+};
