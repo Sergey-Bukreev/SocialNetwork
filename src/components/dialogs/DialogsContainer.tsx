@@ -2,6 +2,8 @@ import React from 'react';
 import {Action} from "redux";
 import {DialogState, sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogReducer";
 import {Dialogs} from "./Dialogs";
+import {StoreContext} from "../../StoreContext";
+
 
 type DialogsContainerPropsType = {
     dialogsPage:DialogState
@@ -10,8 +12,19 @@ type DialogsContainerPropsType = {
 };
 
 export const DialogsContainer: React.FC<DialogsContainerPropsType> = (props: DialogsContainerPropsType) => {
-    const sendMessage = (): void => {props.dispatch(sendMessageActionCreator())};
-    const onMessageChange = (messageText:string): void => {props.dispatch(updateNewMessageTextActionCreator(messageText))};
+    return (
+        <StoreContext.Consumer>
+            {(store) => {
+                const sendMessage = (): void => {store.dispatch(sendMessageActionCreator())};
+                const onMessageChange = (messageText:string): void => {store.dispatch(updateNewMessageTextActionCreator(messageText))};
 
-    return (<Dialogs  updateNewMessageText={onMessageChange} sendMessage={sendMessage} dialogsPage={props.dialogsPage}/>);
+                return (
+                    <div>
+                        <Dialogs updateNewMessageText={onMessageChange} sendMessage={sendMessage} dialogsPage={store.getState().dialogPage}/>
+
+                    </div>
+                );
+            }}
+        </StoreContext.Consumer>
+    );
 };
