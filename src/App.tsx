@@ -7,6 +7,8 @@ import {BrowserRouter, Route} from "react-router-dom";
 import { RotState} from "./redux/Redux-Store";
 import {Action, Dispatch} from "redux";
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
+import {UsersContainer} from "./components/users/UsersContainer";
+
 
 
 
@@ -22,7 +24,7 @@ const App = (props:StatePropsType) => {
            <div className="app-wrapper-content">
                <Route render = {() => <DialogsContainer dialogsPage={props.appState.dialogPage}  />} path={"/dialogs"} />
                <Route render = {() => <Profile  dispatch={props.dispatch}  profilePage={props.appState.profilePage} />} path={"/profile"} />
-
+               <Route render = {() => <UsersContainer appState={props.appState.usersPage} dispatch={props.dispatch}/>} path={"/users"} />
            </div>
        </div>
    </BrowserRouter>

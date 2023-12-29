@@ -21,6 +21,9 @@ export const Navbar:React.FC = () => {
             <div>
                 <NavLink to={"#"} className={classes.item}>Settings</NavLink>
             </div>
+            <div>
+                <NavLink to={"/users"} className={classes.item}  >Find Users</NavLink>
+            </div>
         </nav>
     );
 };
