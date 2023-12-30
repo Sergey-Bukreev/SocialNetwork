@@ -1,21 +1,29 @@
 import { RotState, store } from '../../redux/Redux-Store';
-import {followActionCreator, IUsers, setUsersActionCreator, unfollowActionCreator,} from '../../redux/usersReducer';
+import {followActionCreator, IUsers, setUsersActionCreator, unfollowActionCreator, UsersState,} from '../../redux/usersReducer';
 import { connect } from 'react-redux';
 import {Users} from "./Users"
 import {Action, Dispatch} from "redux";
+export type MapStateToPropsType = {
+    usersPage:UsersState
+}
+const mapStateToProps = (state: RotState):MapStateToPropsType => {return { usersPage: state.usersPage };};
+export type MapDispatchToPropsType = {
+    follow: (userId: number) => void
 
-const mapStateToProps = (state: RotState) => {return { usersPage: state.usersPage };};
+    unfollow: (userId: number) => void
 
-const mapDispatchToProps = (dispatch:Dispatch) => {
+    setUsers: (users: IUsers[]) => void
+}
+const mapDispatchToProps = (dispatch:Dispatch<Action>) : MapDispatchToPropsType=> {
     return {
         follow: (userId: number) => {
-            dispatch(followActionCreator(userId));
+            store.dispatch(followActionCreator(userId));
         },
         unfollow: (userId: number) => {
-            dispatch(unfollowActionCreator(userId));
+            store.dispatch(unfollowActionCreator(userId));
         },
         setUsers: (users: IUsers[]) => {
-            dispatch(setUsersActionCreator(users));
+            store.dispatch(setUsersActionCreator(users));
         },
     };
 };

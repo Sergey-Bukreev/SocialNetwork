@@ -2,20 +2,16 @@ import React from 'react';
 import { DialogItem } from "./dialogItem/DialogItem";
 import { Message } from "./Message/Message";
 import classes from "./Dialogs.module.css";
-import {DialogState} from "../../redux/dialogReducer";
+import {MapDispatchToPropsType, MapStateToPropsType} from "./DialogsContainer";
 
-type DialogsPropsType = {
-    dialogsPage:DialogState
-    updateNewMessageText:(messageText:string) => void
-    sendMessage: ()=> void
-};
+type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 export const Dialogs: React.FC<DialogsPropsType> = (props: DialogsPropsType) => {
-    let dialogsElements: JSX.Element[] = props.dialogsPage.dialogsData.map((el) => (
+    let dialogsElements: JSX.Element[] = props.dialogPage.dialogsData.map((el) => (
         <DialogItem key={el.id} name={el.name} id={el.id} />
     ));
 
-    let messagesElements: JSX.Element[] = props.dialogsPage.messageData.map((el, index) => (
+    let messagesElements: JSX.Element[] = props.dialogPage.messageData.map((el, index) => (
         <Message key={index} message={el.message} />
     ));
 
@@ -36,7 +32,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props: DialogsPropsType) => 
             <div className={classes.dialog}>{dialogsElements}</div>
             <div className={classes.messages}>{messagesElements}</div>
             <div className={classes.sendMessageWrapper}>
-                <textarea ref={newMessageElement} onChange={onMessageChange} value={props.dialogsPage.newMessageText} />
+                <textarea ref={newMessageElement} onChange={onMessageChange} value={props.dialogPage.newMessageText} />
                 <button onClick={sendMessage}>Отправить</button>
             </div>
         </div>

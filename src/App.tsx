@@ -22,9 +22,9 @@ const App = (props:StatePropsType) => {
            <Header />
            <Navbar />
            <div className="app-wrapper-content">
-               <Route render = {() => <DialogsContainer dialogsPage={props.appState.dialogPage}  />} path={"/dialogs"} />
+               <Route render = {() => <DialogsContainer  />} path={"/dialogs"} />
                <Route render = {() => <Profile  dispatch={props.dispatch}  profilePage={props.appState.profilePage} />} path={"/profile"} />
-               <Route render = {() => <UsersContainer appState={props.appState.usersPage} dispatch={props.dispatch}/>} path={"/users"} />
+               <Route render = {() => <UsersContainer />} path={"/users"} />
            </div>
        </div>
    </BrowserRouter>

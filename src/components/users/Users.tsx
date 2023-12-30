@@ -1,21 +1,24 @@
-import React, {PropsWithChildren} from 'react';
+import React from 'react';
 import { Button } from 'antd';
-import { UsersState} from '../../redux/usersReducer';
 import classes from "./Users.module.css"
-import {Dispatch, Action} from "redux";
-type UsersPropsType = {
-    appState: UsersState
-    dispatch:Dispatch<Action>
-};
+import axios from "axios";
+import {MapDispatchToPropsType, MapStateToPropsType} from "./UsersContainer";
+import baseUserPhoto from "./../../assets/images/baseUserPhoto.png"
+
+type UsersPropsType = MapDispatchToPropsType & MapStateToPropsType
 
 export const Users: React.FC<UsersPropsType> = (props: UsersPropsType) => {
-
+if(props.usersPage.usersData.length === 0) {
+    axios.get("http://social-network.samuraijs.com/api/1.0/users").then(response =>{
+        props.setUsers(response.data.items)
+    })
+}
     return (
         <div>
-            {props.appState.usersData.map((user) => (
+            {props.usersPage.usersData.map((user) => (
                 <div key={user.id}>
           <span>
-            <img src={user.photoUrl} className={classes.userPhoto} />
+            <img src={user.photoUrl !== null ? user.photoUrl : baseUserPhoto} className={classes.userPhoto} />
             <div>
               <Button name={'Follow'} onClick={() => {}} />
             </div>
