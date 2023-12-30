@@ -1,40 +1,46 @@
 import React from 'react';
-import { Button } from 'antd';
 import classes from "./Users.module.css"
 import axios from "axios";
-import {MapDispatchToPropsType, MapStateToPropsType} from "./UsersContainer";
 import baseUserPhoto from "./../../assets/images/baseUserPhoto.png"
+import {IUsers} from "../../redux/usersReducer";
 
-type UsersPropsType = MapDispatchToPropsType & MapStateToPropsType
 
-export const Users: React.FC<UsersPropsType> = (props: UsersPropsType) => {
-if(props.usersPage.usersData.length === 0) {
-    axios.get("http://social-network.samuraijs.com/api/1.0/users").then(response =>{
-        props.setUsers(response.data.items)
-    })
-}
-    return (
-        <div>
-            {props.usersPage.usersData.map((user) => (
-                <div key={user.id}>
-          <span>
-            <img src={user.photoUrl !== null ? user.photoUrl : baseUserPhoto} className={classes.userPhoto} />
+export class Users extends React.Component<any, any>{
+    getUsers = ()=> {
+
+        if(this.props.usersPage.usersData.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
+                console.log(response)
+                this.props.setUsers(response.data.items)
+            })
+        }
+    }
+
+    render() {
+        return (
             <div>
-              <Button name={'Follow'} onClick={() => {}} />
+                <button onClick={this.getUsers}>Get Users</button>
+                {this.props.usersPage.usersData.map((user:IUsers) => (
+                    <div key={user.id}>
+          <span>
+            <img src={user.photos.small !== null ? user.photos.small : baseUserPhoto} className={classes.userPhoto} />
+            <div>
+              <button onClick={()=>{}}>Follow</button>
             </div>
           </span>
-                    <span>
+                        <span>
             <span>
-              <div>{user.fullName}</div>
+              <div>{user.name}</div>
               <div>{user.status}</div>
             </span>
             <span>
-              <div>{user.location.city}, {user.location.country}</div>
+
               <div>{user.followed ? 'Following' : 'Not Following'}</div>
             </span>
           </span>
-                </div>
-            ))}
-        </div>
-    );
-};
+                    </div>
+                ))}
+            </div>
+        );
+    }
+}

@@ -1,8 +1,8 @@
 import { RotState, store } from '../../redux/Redux-Store';
 import {followActionCreator, IUsers, setUsersActionCreator, unfollowActionCreator, UsersState,} from '../../redux/usersReducer';
 import { connect } from 'react-redux';
-import {Users} from "./Users"
 import {Action, Dispatch} from "redux";
+import {Users} from "./Users";
 export type MapStateToPropsType = {
     usersPage:UsersState
 }
