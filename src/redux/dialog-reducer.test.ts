@@ -46,13 +46,13 @@ test("updating new message text should change the newMessageText property", ()=>
         newMessageText: "Write your message",
     };
 
-    const newText:string = "Hellow its new Message Text"
+    const newText:string = "Hello its new Message Text"
     const updateNewMessageTextAction:NewMessageTextAction = updateNewMessageTextActionCreator(newText)
     const endState:DialogState = dialogReducer(startState, updateNewMessageTextAction)
 
     expect(startState).not.toEqual(endState)
     expect(startState.newMessageText).toBe("Write your message")
-    expect(endState.newMessageText).toBe("Hellow its new Message Text")
+    expect(endState.newMessageText).toBe("Hello its new Message Text")
     expect(endState.messageData).toEqual(startState.messageData);
     expect(endState.dialogsData).toEqual(startState.dialogsData);
 })

@@ -6,20 +6,40 @@ import {IUsers} from "../../redux/usersReducer";
 
 
 export class Users extends React.Component<any, any>{
-    getUsers = ()=> {
 
-        if(this.props.usersPage.usersData.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
-                console.log(response)
-                this.props.setUsers(response.data.items)
-            })
-        }
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response =>{
+            console.log(response)
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
     }
+onPageChanged = (pageNumber:number) => {
+    this.props.setCurrentPage(pageNumber)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response =>{
+        console.log(response)
+        this.props.setUsers(response.data.items)
+    })
 
+}
     render() {
+       let pagesCount:number = Math.ceil(this.props.totalUserCount / this.props.pageSize)
+        let pages:number[] = []
+        for( let i= 1; i<=pagesCount; i++) {
+            pages.push(i)
+        }
+
         return (
             <div>
-                <button onClick={this.getUsers}>Get Users</button>
+                <div>
+                    {pages.map(page=>
+                        <span className={this.props.currentPage === page ? classes.selectedPage : ""}
+                        onClick={()=>{this.onPageChanged(page)}}
+                        >
+                            {page}
+                        </span>
+                    )}
+                </div>
                 {this.props.usersPage.usersData.map((user:IUsers) => (
                     <div key={user.id}>
           <span>

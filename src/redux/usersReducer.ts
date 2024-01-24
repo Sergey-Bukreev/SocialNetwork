@@ -1,21 +1,22 @@
 export type FollowAction = {type:"FOLLOW", userId:number}
 export type UnFollowAction = {type:"UNFOLLOW", userId:number}
 export type SetUsersAction = {type:"SET-USERS", users:IUsers[]}
-export type UsersAction = FollowAction | UnFollowAction | SetUsersAction
+export type SetCurrentPageAction = {type:"SET-CURRENT-PAGE", currentPage:number}
+export type SetTotalUsersCountAction = {type:"SET-TOTAL-USERS-COUNT", totalCount:number}
+export type UsersAction = FollowAction | UnFollowAction | SetUsersAction | SetCurrentPageAction | SetTotalUsersCountAction
 export type IUsers ={ name: string, id: number, uniqueUrlName: null |string, photos: { small: null |string, large: null| string }, status: null| string, followed: boolean }
-export type UsersState = { usersData: IUsers[] }
+export type UsersState = { usersData: IUsers[], pageSize:number, totalUserCount:number, currentPage:number }
 export let initialState:UsersState = {
-    usersData: [
-        // {id: 1, photoUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPVvnObWUEcuI8f-gy9eJrxr8lVc3BveOeSQ&usqp=CAU", fullName: "Sergio", status:"Online", followed:true, location:{city:"Geneve", country:"Swiss"}},
-        // {id: 2, photoUrl:null, fullName: "Dymuch", status:"Online", followed:true, location:{city:"Minsk", country:"Belarus"}},
-        // {id: 3, photoUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPVvnObWUEcuI8f-gy9eJrxr8lVc3BveOeSQ&usqp=CAU", fullName: "Alice", status:"Online", followed:true, location:{city:"Geneve", country:"Swiss"}},
-        // {id: 4, photoUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPVvnObWUEcuI8f-gy9eJrxr8lVc3BveOeSQ&usqp=CAU", fullName: "Ben", status:"Onlne", followed:true, location:{city:"Zurich", country:"Swiss"}},
-        // {id: 5, photoUrl:null, fullName: "Robert", status:"Online", followed:true, location:{city:"Vien", country:"Austria"}}
-    ],
+    usersData: [],
+    pageSize: 100,
+    totalUserCount: 0,
+    currentPage:3
 }
 export const followActionCreator = (userId:number) => {return {type:"FOLLOW", userId} as const}
 export const unfollowActionCreator = (userId:number ) => {return {type:"UNFOLLOW", userId} as const}
 export const setUsersActionCreator = (users:IUsers[] ) => {return {type:"SET-USERS", users } as const}
+export const setCurrentPageActionCreator = (currentPage:number)=> {return{type:"SET-CURRENT-PAGE", currentPage} as const}
+export const setTotalUsersCountActionCreator = (totalCount:number) => {return {type:"SET-TOTAL-USERS-COUNT", totalCount} as const}
 export const usersReducer = (usersState: UsersState = initialState, action: UsersAction):UsersState => {
 
 
@@ -37,7 +38,11 @@ export const usersReducer = (usersState: UsersState = initialState, action: User
         }
             break;
         case "SET-USERS":
-            return { ...usersState, usersData: [...usersState.usersData, ...action.users] };
+            return { ...usersState, usersData:action.users };
+        case "SET-CURRENT-PAGE" :
+            return {...usersState, currentPage: action.currentPage}
+        case "SET-TOTAL-USERS-COUNT" :
+            return {...usersState, totalUserCount:action.totalCount}
         default:
             return usersState;
     }
