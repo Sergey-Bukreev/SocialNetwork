@@ -8,7 +8,7 @@ export type UsersPropsType = {
     pageSize:number
     currentPage:number
     onPageChanged: (page:number)=> void
-    usersData:any
+    usersData:[]
 }
 export const Users = (props:UsersPropsType) => {
 
