@@ -1,4 +1,4 @@
-import { ProfileState, AddPostAction, NewPostTextAction, addPostActionCreator, updateNewPostTextActionCreator, profileReducer } from "./profileReducer";
+import { ProfileState, AddPostAction, NewPostTextAction, addPost, updateNewPostText, profileReducer } from "./profileReducer";
 
 test("correct post should be added", () => {
     const startState: ProfileState = {
@@ -11,7 +11,7 @@ test("correct post should be added", () => {
     };
 
 
-    const addPostAction: AddPostAction = addPostActionCreator();
+    const addPostAction: AddPostAction = addPost();
     const endState: ProfileState = profileReducer(startState, addPostAction);
 
     expect(startState).not.toEqual(endState)
@@ -30,7 +30,7 @@ test("updating new post text should change the newPostText property", ()=> {
         newPostText: "Hello",
     };
     const newPostText:string = "Hellow its new Post Text"
-    const updateNewPostTextAction:NewPostTextAction = updateNewPostTextActionCreator(newPostText)
+    const updateNewPostTextAction:NewPostTextAction = updateNewPostText(newPostText)
     const endState:ProfileState = profileReducer(startState, updateNewPostTextAction)
 
     expect(startState).not.toEqual(endState)

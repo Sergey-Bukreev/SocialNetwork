@@ -1,4 +1,4 @@
-import {DialogState, sendMessageActionCreator, dialogReducer, SendMessageAction, updateNewMessageTextActionCreator, NewMessageTextAction} from "./dialogReducer";
+import {DialogState, sendMessage, dialogReducer, SendMessageAction, updateNewMessageText, NewMessageTextAction} from "./dialogReducer";
 
 test("sending a message should modify the dialog state", () => {
     const startState: DialogState = {
@@ -20,7 +20,7 @@ test("sending a message should modify the dialog state", () => {
     };
 
 
-    const sendMessageAction:SendMessageAction = sendMessageActionCreator();
+    const sendMessageAction:SendMessageAction = sendMessage();
     const endState:DialogState = dialogReducer(startState, sendMessageAction);
 
     expect(endState.messageData).toHaveLength(startState.messageData.length + 1);
@@ -47,7 +47,7 @@ test("updating new message text should change the newMessageText property", ()=>
     };
 
     const newText:string = "Hello its new Message Text"
-    const updateNewMessageTextAction:NewMessageTextAction = updateNewMessageTextActionCreator(newText)
+    const updateNewMessageTextAction:NewMessageTextAction = updateNewMessageText(newText)
     const endState:DialogState = dialogReducer(startState, updateNewMessageTextAction)
 
     expect(startState).not.toEqual(endState)

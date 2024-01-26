@@ -14,12 +14,12 @@ export let initialState:UsersState = {
     currentPage:3,
     isFetching: true
 }
-export const followActionCreator = (userId:number) => {return {type:"FOLLOW", userId} as const}
-export const unfollowActionCreator = (userId:number ) => {return {type:"UNFOLLOW", userId} as const}
-export const setUsersActionCreator = (users:IUsers[] ) => {return {type:"SET-USERS", users } as const}
-export const setCurrentPageActionCreator = (currentPage:number)=> {return{type:"SET-CURRENT-PAGE", currentPage} as const}
-export const setTotalUsersCountActionCreator = (totalCount:number) => {return {type:"SET-TOTAL-USERS-COUNT", totalCount} as const}
-export const setToggleIsFetchingActionCreator = (isFetching:boolean) => {return {type:"TOGGLE-IS-FETCHING", isFetching} as const}
+export const follow = (userId:number) => {return {type:"FOLLOW", userId} as const}
+export const unfollow = (userId:number ) => {return {type:"UNFOLLOW", userId} as const}
+export const setUsers = (users:IUsers[] ) => {return {type:"SET-USERS", users } as const}
+export const setCurrentPage = (currentPage:number)=> {return{type:"SET-CURRENT-PAGE", currentPage} as const}
+export const setTotalUsersCount = (totalCount:number) => {return {type:"SET-TOTAL-USERS-COUNT", totalCount} as const}
+export const setToggleIsFetching = (isFetching:boolean) => {return {type:"TOGGLE-IS-FETCHING", isFetching} as const}
 export const usersReducer = (usersState: UsersState = initialState, action: UsersAction):UsersState => {
 
 

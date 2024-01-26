@@ -24,8 +24,8 @@ const initialState:DialogState = {
     ],
     newMessageText: "Write your message",
 }
-export const sendMessageActionCreator = ():SendMessageAction => {return {type:"SEND-MESSAGE"}}
-export  const updateNewMessageTextActionCreator = (messageText:string):NewMessageTextAction => {return {type:"UPDATE-NEW-MESSAGE-TEXT", newMessage:messageText}}
+export const sendMessage = ():SendMessageAction => {return {type:"SEND-MESSAGE"}}
+export  const updateNewMessageText = (messageText:string):NewMessageTextAction => {return {type:"UPDATE-NEW-MESSAGE-TEXT", newMessage:messageText}}
 export const dialogReducer = (dialogState: DialogState = initialState, action: DialogAction): DialogState => {
     let updateDialogState = { ...dialogState };
 

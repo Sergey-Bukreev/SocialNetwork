@@ -15,8 +15,8 @@ export type ProfileState = {
      ],
      newPostText: "Hello",
 }
-export  const addPostActionCreator = ():AddPostAction=> {return {type:"ADD-POST"}}
-export  const updateNewPostTextActionCreator = (text:string):NewPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text}}
+export  const addPost = ():AddPostAction=> {return {type:"ADD-POST"}}
+export  const updateNewPostText = (text:string):NewPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text}}
 export const profileReducer = (profileState: ProfileState = initialState, action: ProfileAction): ProfileState => {
     let updateProfileState = { ...profileState };
 

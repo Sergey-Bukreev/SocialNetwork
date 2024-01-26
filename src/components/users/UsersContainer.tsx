@@ -1,16 +1,15 @@
 import { RotState, store } from '../../redux/Redux-Store';
 import {
-    followActionCreator,
+    follow,
     IUsers,
-    setCurrentPageActionCreator,
-    setToggleIsFetchingActionCreator,
-    setTotalUsersCountActionCreator,
-    setUsersActionCreator,
-    unfollowActionCreator,
+    setCurrentPage,
+    setToggleIsFetching,
+    setTotalUsersCount,
+    setUsers,
+    unfollow,
     UsersState,
 } from '../../redux/usersReducer';
 import { connect } from 'react-redux';
-import {Action, Dispatch} from "redux";
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
@@ -81,27 +80,5 @@ export type MapDispatchToPropsType = {
     setToggleIsFetching: (isFetching:boolean)=> void
 
 }
-const mapDispatchToProps = (dispatch:Dispatch<Action>) : MapDispatchToPropsType=> {
-    return {
-        follow: (userId: number) => {
-            store.dispatch(followActionCreator(userId));
-        },
-        unfollow: (userId: number) => {
-            store.dispatch(unfollowActionCreator(userId));
-        },
-        setUsers: (users: IUsers[]) => {
-            store.dispatch(setUsersActionCreator(users));
-        },
-        setCurrentPage: (pageNumber:number)=> {
-           store.dispatch(setCurrentPageActionCreator(pageNumber))
-        },
-        setTotalUsersCount: (totalCount:number)=> {
-            store.dispatch(setTotalUsersCountActionCreator(totalCount))
-        },
-        setToggleIsFetching: (isFetching:boolean) => {
-            store.dispatch(setToggleIsFetchingActionCreator(isFetching))
-        }
-    };
-};
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerComponent);
+export const UsersContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFetching } )(UsersContainerComponent);
