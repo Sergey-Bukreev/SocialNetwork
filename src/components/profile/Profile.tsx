@@ -7,11 +7,11 @@ import {MyPostsContainer} from "./myPosts/MyPostsContainer";
 
 
 
-export type ProfilePropsType = { dispatch:(action: Action) => void, profilePage:ProfileState }
+export type ProfilePropsType = { dispatch:(action: Action) => void, profile:any }
 export const Profile:React.FC<ProfilePropsType> = (props:ProfilePropsType) => {
     return (
         <div className={classes.content}>
-            <ProfileInfo />
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer/>
         </div>
 

@@ -8,6 +8,7 @@ test("correct post should be added", () => {
             { id: 3, message: "Have a good Time", likeCount: 22 },
         ],
         newPostText: "Hello",
+        profile:null
     };
 
 
@@ -28,6 +29,7 @@ test("updating new post text should change the newPostText property", ()=> {
             { id: 3, message: "Have a good Time", likeCount: 22 },
         ],
         newPostText: "Hello",
+        profile:null
     };
     const newPostText:string = "Hellow its new Post Text"
     const updateNewPostTextAction:NewPostTextAction = updateNewPostText(newPostText)

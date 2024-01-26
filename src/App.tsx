@@ -8,6 +8,7 @@ import { RotState} from "./redux/Redux-Store";
 import {Action, Dispatch} from "redux";
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 import {UsersContainer} from "./components/users/UsersContainer";
+import {ProfileContainer} from "./components/profile/ProfileContainer";
 
 
 
@@ -23,7 +24,7 @@ const App = (props:StatePropsType) => {
            <Navbar />
            <div className="app-wrapper-content">
                <Route render = {() => <DialogsContainer  />} path={"/dialogs"} />
-               <Route render = {() => <Profile  dispatch={props.dispatch}  profilePage={props.appState.profilePage} />} path={"/profile"} />
+               <Route render = {() => <ProfileContainer />} path={"/profile"} />
                <Route render = {() => <UsersContainer />} path={"/users"} />
            </div>
        </div>

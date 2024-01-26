@@ -1,10 +1,12 @@
 export type NewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
 export type AddPostAction = { type: "ADD-POST" }
-export type ProfileAction = NewPostTextAction | AddPostAction
+export type SetUserProfileAction = {type:"SET-USER-PROFILE", profile:ProfileState}
+export type ProfileAction = NewPostTextAction | AddPostAction | SetUserProfileAction
 export interface IPost {id: number;message: string;likeCount: number;}
 export type ProfileState = {
     postsData: IPost[];
     newPostText: string;
+    profile:any
 }
  export let initialState: ProfileState = {
      postsData: [
@@ -14,9 +16,11 @@ export type ProfileState = {
 
      ],
      newPostText: "Hello",
+     profile:null
 }
-export  const addPost = ():AddPostAction=> {return {type:"ADD-POST"}}
-export  const updateNewPostText = (text:string):NewPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text}}
+export  const addPost = ():AddPostAction=> {return {type:"ADD-POST"} as const}
+export  const updateNewPostText = (text:string):NewPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text} as const}
+export const setUserProfile = (profile:any)=> {return {type:"SET-USER-PROFILE", profile} as const}
 export const profileReducer = (profileState: ProfileState = initialState, action: ProfileAction): ProfileState => {
     let updateProfileState = { ...profileState };
 
@@ -34,6 +38,8 @@ export const profileReducer = (profileState: ProfileState = initialState, action
         case "UPDATE-NEW-POST-TEXT":
             updateProfileState.newPostText = action.newText;
             break;
+        case "SET-USER-PROFILE":
+            return {...profileState, profile: action.profile }
         default:
             return updateProfileState;
     }

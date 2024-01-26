@@ -69,16 +69,6 @@ const mapStateToProps = (state: RotState):MapStateToPropsType => {
     };
 };
 
-export type MapDispatchToPropsType = {
-    follow: (userId: number) => void
 
-    unfollow: (userId: number) => void
-
-    setUsers: (users: IUsers[]) => void
-    setCurrentPage: (currentPage:number) => void
-    setTotalUsersCount: (totalCount:number)=> void
-    setToggleIsFetching: (isFetching:boolean)=> void
-
-}
 
 export const UsersContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFetching } )(UsersContainerComponent);
