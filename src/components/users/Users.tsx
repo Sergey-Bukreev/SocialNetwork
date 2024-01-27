@@ -42,7 +42,7 @@ export const Users = (props:UsersPropsType) => {
           </span>
                     <span>
             <span>
-              <div>{user.name}</div>
+              <div key={user.id}>{user.name}</div>
               <div>{user.status}</div>
             </span>
             <span>

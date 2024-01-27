@@ -24,7 +24,7 @@ const App = (props:StatePropsType) => {
            <Navbar />
            <div className="app-wrapper-content">
                <Route render = {() => <DialogsContainer  />} path={"/dialogs"} />
-               <Route render = {() => <ProfileContainer />} path={"/profile"} />
+               <Route render = {() => <ProfileContainer />} path={"/profile/:userId"} />
                <Route render = {() => <UsersContainer />} path={"/users"} />
            </div>
        </div>

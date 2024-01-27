@@ -6,7 +6,19 @@ export interface IPost {id: number;message: string;likeCount: number;}
 export type ProfileState = {
     postsData: IPost[];
     newPostText: string;
-    profile:any
+    profile:UserProfileType | null
+}
+export type UserProfileType = {
+    fullName: string | null
+    aboutMe:string | null
+    id:number | null
+    lookingForAJob: boolean
+    photos: UserPhotosType
+    followed:boolean
+}
+export type UserPhotosType = {
+    small:string | null
+    large:string | null
 }
  export let initialState: ProfileState = {
      postsData: [
@@ -39,7 +51,7 @@ export const profileReducer = (profileState: ProfileState = initialState, action
             updateProfileState.newPostText = action.newText;
             break;
         case "SET-USER-PROFILE":
-            return {...profileState, profile: action.profile }
+            return { ...profileState, profile: { ...profileState.profile, ...action.profile } } as ProfileState;
         default:
             return updateProfileState;
     }
