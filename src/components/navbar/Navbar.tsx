@@ -7,7 +7,7 @@ export const Navbar:React.FC = () => {
     return (
         <nav className={classes.nav}>
             <div>
-                <NavLink to={"/profile"} className={classes.item} activeClassName={classes.active}>Profile</NavLink>
+                <NavLink to={"/profile/2"} className={classes.item} activeClassName={classes.active}>Profile</NavLink>
             </div>
             <div>
                 <NavLink to={"/dialogs"} className={classes.item} activeClassName={classes.active} >Messages</NavLink>
