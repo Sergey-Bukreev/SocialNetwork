@@ -6,13 +6,15 @@ export type SetCurrentPageAction = {type:"SET-CURRENT-PAGE", currentPage:number}
 export type SetTotalUsersCountAction = {type:"SET-TOTAL-USERS-COUNT", totalCount:number}
 export type UsersAction = FollowAction | UnFollowAction | SetUsersAction | SetCurrentPageAction | SetTotalUsersCountAction | SetToggleIsFetching
 export type IUsers ={ name: string, id: number, uniqueUrlName: null |string, photos: { small: null |string, large: null| string }, status: null| string, followed: boolean }
-export type UsersState = { usersData: IUsers[], pageSize:number, totalUserCount:number, currentPage:number, isFetching:boolean }
+export type UsersState = { usersData: IUsers[], pageSize:number, totalUserCount:number, currentPage:number, isFetching:boolean, }
 export let initialState:UsersState = {
     usersData: [],
     pageSize: 100,
     totalUserCount: 0,
     currentPage:3,
-    isFetching: true
+    isFetching: true,
+
+
 }
 export const follow = (userId:number) => {return {type:"FOLLOW", userId} as const}
 export const unfollow = (userId:number ) => {return {type:"UNFOLLOW", userId} as const}

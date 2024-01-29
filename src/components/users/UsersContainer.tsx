@@ -21,12 +21,14 @@ export type MapStateToPropsType = {
     totalUserCount:number
     currentPage:number
     isFetching:boolean
+
+
 }
 export class UsersContainerComponent extends React.Component<any, any> {
 
     componentDidMount() {
        this.props.setToggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials:true}).then(response => {
 
             this.props.setToggleIsFetching(false)
             this.props.setUsers(response.data.items)
@@ -37,7 +39,7 @@ export class UsersContainerComponent extends React.Component<any, any> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.setToggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials:true}).then(response => {
 
             this.props.setToggleIsFetching(false)
             this.props.setUsers(response.data.items)
@@ -53,6 +55,9 @@ export class UsersContainerComponent extends React.Component<any, any> {
                         currentPage={this.props.currentPage}
                         onPageChanged={this.onPageChanged}
                         usersData={this.props.usersPage.usersData}
+                           follow={this.props.follow}
+                           unfollow={this.props.unfollow}
+
                     />
                 </>
 
@@ -65,7 +70,10 @@ const mapStateToProps = (state: RotState):MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+
+
+
     };
 };
 
