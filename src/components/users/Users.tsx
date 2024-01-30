@@ -15,6 +15,8 @@ export type UsersPropsType = {
     usersData: IUsers[];
     follow: (userId: number) => void;
     unfollow: (userId: number) => void;
+    followInProgress:number[]
+    setToggleFollowInProgress:(isFetching:boolean, userId:number)=> void
 };
 
 
@@ -45,15 +47,25 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 
                         <div>
                             {user.followed
-                                ? <button onClick={() => {
+                                ? <button style={{ backgroundColor: props.followInProgress.some(id => id === user.id) ? 'gray' : 'white' }}
+                                          disabled={props.followInProgress.some(id => id === user.id)}
+                                          onClick={() => {
+                                    props.setToggleFollowInProgress(true, user.id)
                                     UsersAPI.unfollowUser(user.id).then(data => {
                                         if(data.resultCode === 0) {props.unfollow(user.id)}
+                                        props.setToggleFollowInProgress(false, user.id)
                                     })
+
                                     }}>Unfollow</button>
-                                : <button onClick={() => {
+                                : <button style={{ backgroundColor: props.followInProgress.some(id => id === user.id) ? 'gray' : 'white' }}
+                                    disabled={props.followInProgress.some(id => id === user.id)}
+                                    onClick={() => {
+                                    props.setToggleFollowInProgress(true, user.id)
                                     UsersAPI.followUser(user.id).then(data => {
                                         if(data.resultCode === 0) {props.follow(user.id)}
+                                        props.setToggleFollowInProgress(false, user.id)
                                     })
+
                                 }}>Follow</button>
                             }
                         </div>

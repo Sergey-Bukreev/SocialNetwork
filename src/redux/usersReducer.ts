@@ -2,17 +2,19 @@ export type FollowAction = {type:"FOLLOW", userId:number}
 export type UnFollowAction = {type:"UNFOLLOW", userId:number}
 export type SetUsersAction = {type:"SET-USERS", users:IUsers[]}
 export type SetToggleIsFetching = {type:"TOGGLE-IS-FETCHING", isFetching:boolean}
+export type SetToggleFollowInProgress = {type:"TOGGLE-FOLLOW-IN-PROGRESS", isFetching:boolean, userId:number}
 export type SetCurrentPageAction = {type:"SET-CURRENT-PAGE", currentPage:number}
 export type SetTotalUsersCountAction = {type:"SET-TOTAL-USERS-COUNT", totalCount:number}
-export type UsersAction = FollowAction | UnFollowAction | SetUsersAction | SetCurrentPageAction | SetTotalUsersCountAction | SetToggleIsFetching
+export type UsersAction = FollowAction | UnFollowAction | SetUsersAction | SetCurrentPageAction | SetTotalUsersCountAction | SetToggleIsFetching | SetToggleFollowInProgress
 export type IUsers ={ name: string, id: number, uniqueUrlName: null |string, photos: { small: null |string, large: null| string }, status: null| string, followed: boolean }
-export type UsersState = { usersData: IUsers[], pageSize:number, totalUserCount:number, currentPage:number, isFetching:boolean, }
+export type UsersState = { usersData: IUsers[], pageSize:number, totalUserCount:number, currentPage:number, isFetching:boolean, followInProgress: number[]}
 export let initialState:UsersState = {
     usersData: [],
     pageSize: 100,
     totalUserCount: 0,
     currentPage:3,
     isFetching: true,
+    followInProgress:[]
 
 
 }
@@ -22,6 +24,7 @@ export const setUsers = (users:IUsers[] ) => {return {type:"SET-USERS", users } 
 export const setCurrentPage = (currentPage:number)=> {return{type:"SET-CURRENT-PAGE", currentPage} as const}
 export const setTotalUsersCount = (totalCount:number) => {return {type:"SET-TOTAL-USERS-COUNT", totalCount} as const}
 export const setToggleIsFetching = (isFetching:boolean) => {return {type:"TOGGLE-IS-FETCHING", isFetching} as const}
+export const setToggleFollowInProgress = (isFetching:boolean, userId:number)=> {return{type:"TOGGLE-FOLLOW-IN-PROGRESS", isFetching, userId} as const}
 export const usersReducer = (usersState: UsersState = initialState, action: UsersAction):UsersState => {
 
 
@@ -50,6 +53,11 @@ export const usersReducer = (usersState: UsersState = initialState, action: User
             return {...usersState, totalUserCount:action.totalCount}
         case "TOGGLE-IS-FETCHING":
             return  {...usersState, isFetching: action.isFetching}
+        case "TOGGLE-FOLLOW-IN-PROGRESS":
+            return {...usersState, followInProgress:action.isFetching
+                    ? [...usersState.followInProgress, action.userId]
+                    : usersState.followInProgress.filter(id=>id !== action.userId)
+            }
         default:
             return usersState;
     }

@@ -1,7 +1,7 @@
 import { RotState,  } from '../../redux/Redux-Store';
 import {
     follow,
-    setCurrentPage,
+    setCurrentPage, setToggleFollowInProgress,
     setToggleIsFetching,
     setTotalUsersCount,
     setUsers,
@@ -20,6 +20,8 @@ export type MapStateToPropsType = {
     totalUserCount:number
     currentPage:number
     isFetching:boolean
+    followInProgress:number[]
+
 
 
 }
@@ -54,6 +56,8 @@ export class UsersContainerComponent extends React.Component<any, any> {
                         usersData={this.props.usersPage.usersData}
                            follow={this.props.follow}
                            unfollow={this.props.unfollow}
+                           followInProgress ={this.props.followInProgress}
+                           setToggleFollowInProgress={this.props.setToggleFollowInProgress}
 
                     />
                 </>
@@ -68,6 +72,7 @@ const mapStateToProps = (state: RotState):MapStateToPropsType => {
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followInProgress:state.usersPage.followInProgress
 
 
 
@@ -76,4 +81,4 @@ const mapStateToProps = (state: RotState):MapStateToPropsType => {
 
 
 
-export const UsersContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFetching } )(UsersContainerComponent);
+export const UsersContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFetching, setToggleFollowInProgress} )(UsersContainerComponent);
