@@ -1,3 +1,6 @@
+import {Action, Dispatch} from "redux";
+import {UsersAPI} from "../api/api";
+
 export type NewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
 export type AddPostAction = { type: "ADD-POST" }
 export type SetUserProfileAction = {type:"SET-USER-PROFILE", profile:ProfileState}
@@ -33,6 +36,15 @@ export type UserPhotosType = {
 export  const addPost = ():AddPostAction=> {return {type:"ADD-POST"} as const}
 export  const updateNewPostText = (text:string):NewPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text} as const}
 export const setUserProfile = (profile:any)=> {return {type:"SET-USER-PROFILE", profile} as const}
+export const getUserProfile = (userId:number)=> {
+    return (dispatch: Dispatch<Action>) => {
+        UsersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfile(response.data))
+
+        })
+    }
+}
+
 export const profileReducer = (profileState: ProfileState = initialState, action: ProfileAction): ProfileState => {
     let updateProfileState = { ...profileState };
 
