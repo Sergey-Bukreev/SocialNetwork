@@ -3,6 +3,7 @@ import { DialogItem } from "./dialogItem/DialogItem";
 import { Message } from "./Message/Message";
 import classes from "./Dialogs.module.css";
 import {MapDispatchToPropsType, MapStateToPropsType} from "./DialogsContainer";
+import {Redirect} from "react-router-dom";
 
 type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
@@ -27,6 +28,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props: DialogsPropsType) => 
         props.updateNewMessageText(messageText)
     }};
 
+    if (!props.isAuth ) return  <Redirect to={"/login"}/>
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialog}>{dialogsElements}</div>

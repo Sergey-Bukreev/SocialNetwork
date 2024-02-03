@@ -8,6 +8,7 @@ import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 import {UsersContainer} from "./components/users/UsersContainer";
 import {ProfileContainer} from "./components/profile/ProfileContainer";
 import {HeaderContainer} from "./components/header/HeaderContainer";
+import {Login} from "./components/login/Login";
 
 
 
@@ -25,6 +26,7 @@ const App = (props:StatePropsType) => {
                <Route render = {() => <DialogsContainer  />} path={"/dialogs"} />
                <Route render = {() => <ProfileContainer />} path={"/profile/:userId"} />
                <Route render = {() => <UsersContainer />} path={"/users"} />
+               <Route render = {() => <Login />} path={"/login"} />
            </div>
        </div>
    </BrowserRouter>
