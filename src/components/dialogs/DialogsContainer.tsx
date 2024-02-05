@@ -3,6 +3,7 @@ import {DialogState, sendMessage, updateNewMessageText} from "../../redux/dialog
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RotState} from "../../redux/Redux-Store";
+import {AuthRedirect} from "../../hoc/AuthRedirect";
 
 export type MapStateToPropsType = {dialogPage:DialogState, isAuth:boolean}
 export type MapDispatchToPropsType = {
@@ -12,5 +13,5 @@ export type MapDispatchToPropsType = {
 let mapStateToProps = (state:RotState) : MapStateToPropsType=> {
     return {dialogPage:state.dialogPage, isAuth:state.auth.isAuth}
 }
-
- export const DialogsContainer = connect(mapStateToProps, {updateNewMessageText, sendMessage })(Dialogs)
+let AuthRedirectComponent = AuthRedirect(Dialogs)
+ export const DialogsContainer = connect(mapStateToProps, {updateNewMessageText, sendMessage })(AuthRedirectComponent)
