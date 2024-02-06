@@ -14,6 +14,7 @@ import {compose} from "redux";
         let userId = this.props.match.params.userId
         if(!userId) {userId = 2}
         this.props.getUserProfile(userId)
+        this.props.getUserStatus(userId)
     }
 
     render () {
@@ -28,7 +29,7 @@ import {compose} from "redux";
 
 }
 let mapStateToProps = (state:RotState) => {
- return {profile: state.profilePage.profile, isAuth: state.auth.isAuth}
+ return {profile: state.profilePage.profile, isAuth: state.auth.isAuth, status:state.profilePage.status}
 }
 
 

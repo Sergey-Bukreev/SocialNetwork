@@ -16,13 +16,22 @@ export const UsersAPI = {
      },
      followUser (userId:number){
           return instance.post(`follow/${userId}`).then(response => response.data)
-     },
-     getProfile (userId:number) {
-          return  instance.get(`profile/`+userId)
      }
+
 }
 export const AuthAPI = {
      me() {
           return instance.get(`auth/me`)
+     }
+}
+export const ProfileAPI = {
+     getProfile (userId:number) {
+          return  instance.get(`profile/`+userId)
+     },
+     getStatus (userId:number) {
+          return instance.get(`status/`+userId)
+     },
+     updateStatus (statusText:string) {
+          return instance.put(`status/`, {status:statusText})
      }
 }
