@@ -1,12 +1,19 @@
-import React from 'react';
-
+import React, {ChangeEvent} from 'react';
+interface ProfileStatusProps {
+    status: string;
+    updateStatus: (status: string) => void;
+}
+interface ProfileStatusState {
+    editMode: boolean;
+    status: string;
+}
 class ProfileStatus extends React.Component<any, any>  {
-   state = {
-       editMode: false
+
+    state:ProfileStatusState = {
+       editMode: false,
+        status: this.props.status
    }
    activatedEditMode = () => {
-       debugger
-       console.log("this", this)
        this.setState({
           editMode: true
        })
@@ -15,17 +22,36 @@ class ProfileStatus extends React.Component<any, any>  {
         this.setState({
             editMode: false
         })
+        console.log(this.props.updateStatus)
+        this.props.updateStatus(this.state.status)
     }
-    render() {
+    onStatusChange = (event:ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            status:event.currentTarget.value
+        })
+    }
+    componentDidUpdate(prevProps: Readonly<ProfileStatusProps>, prevState: Readonly<ProfileStatusState>) {
+        if (prevProps.status !== this.props.status && prevState.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            });
+        }
+    }
+
+    render():JSX.Element {
        return   <div>
                     {!this.state.editMode &&
                         <div>
-                            <span onDoubleClick={this.activatedEditMode}>{"hello"}</span>
+                            <span onDoubleClick={this.activatedEditMode}>{this.props.status || "No Status"}</span>
                         </div>
                     }
                     {this.state.editMode &&
                         <div>
-                            <input value={"hellow"} onBlur={this.deactivatedEditMode} autoFocus={true}/>
+                            <input  value={this.state.status}
+                                    onBlur={this.deactivatedEditMode}
+                                    autoFocus={true}
+                                    onChange={this.onStatusChange}
+                            />
                         </div>
                     }
                 </div>

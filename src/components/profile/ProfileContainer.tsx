@@ -1,7 +1,7 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {addPost, getUserProfile, updateNewPostText} from "../../redux/profileReducer";
+import {addPost, getUserProfile, getUserStatus, updateNewPostText, updateUserStatus} from "../../redux/profileReducer";
 import {RotState} from "../../redux/Redux-Store";
 import { withRouter} from "react-router-dom";
 import {AuthRedirect} from "../../hoc/AuthRedirect";
@@ -21,7 +21,7 @@ import {compose} from "redux";
 
         return (
             <div >
-               <Profile dispatch={this.props.dispatch} profile={this.props.profile}  />
+               <Profile dispatch={this.props.dispatch} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateUserStatus} />
             </div>
 
         );
@@ -29,11 +29,15 @@ import {compose} from "redux";
 
 }
 let mapStateToProps = (state:RotState) => {
- return {profile: state.profilePage.profile, isAuth: state.auth.isAuth, status:state.profilePage.status}
+ return {
+     profile: state.profilePage.profile,
+     isAuth: state.auth.isAuth,
+     status:state.profilePage.status
+ }
 }
 
 
-export default compose<React.ComponentType> ( connect (mapStateToProps,{getUserProfile, addPost, updateNewPostText}),
+export default compose<React.ComponentType> ( connect (mapStateToProps,{getUserProfile, addPost, updateNewPostText, getUserStatus, updateUserStatus}),
                                              withRouter,
                                             AuthRedirect
                                             ) (ProfileContainer)

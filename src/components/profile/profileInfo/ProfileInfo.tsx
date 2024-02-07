@@ -6,12 +6,15 @@ import baseUserPhoto from "../../../assets/images/baseUserPhoto.png"
 import ProfileStatus from "./profileStatus/ProfileStatus";
 export type ProfileInfoPropsType = {
     profile:UserProfileType | null
+    status:string | null
+    updateStatus:(statusText:string)=> void
 }
 export const ProfileInfo:React.FC<ProfileInfoPropsType> = (props:ProfileInfoPropsType) => {
   console.log(props)
    if (!props.profile) {
        return <Preloader/>
    }
+    console.log(props.updateStatus)
     return (
         <div >
             <div className={classes.content}>
@@ -21,8 +24,8 @@ export const ProfileInfo:React.FC<ProfileInfoPropsType> = (props:ProfileInfoProp
             <div className={classes.descriptionBlock}>
                 <img src={props.profile.photos?.small || baseUserPhoto} alt="avatar" />
                 <p>{props.profile.fullName || "No name"}</p>
-                {/*<span>{props.profile.aboutMe || "No status"}</span>*/}
-                <ProfileStatus />
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+                <span>{props.profile.aboutMe || "No Information"}</span>
                 <div>Looking for a job: <input type={"checkbox"} checked={props.profile.lookingForAJob}/></div>
             </div>
         </div>
