@@ -2,14 +2,13 @@ import {Action, Dispatch} from "redux";
 import {ProfileAPI} from "../api/api";
 
 export type NewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
-export type AddPostAction = { type: "ADD-POST" }
+export type AddPostAction = { type: "ADD-POST", postBody:string }
 export type SetUserProfileAction = {type:"SET-USER-PROFILE", profile:ProfileState}
 export type SetUserStatusAction = {type:"SET-USER-STATUS", status:string}
 export type ProfileAction = NewPostTextAction | AddPostAction | SetUserProfileAction | SetUserStatusAction
 export interface IPost {id: number;message: string;likeCount: number;}
 export type ProfileState = {
     postsData: IPost[];
-    newPostText: string;
     profile:UserProfileType | null
     status:string
 }
@@ -32,13 +31,12 @@ export type UserPhotosType = {
          {id: 3, message: "Have a good Time", likeCount: 22},
 
      ],
-     newPostText: "Hello",
+
      profile:null,
      status:""
 
 }
-export  const addPost = ():AddPostAction=> {return {type:"ADD-POST"} as const}
-export  const updateNewPostText = (text:string):NewPostTextAction=> {return {type:"UPDATE-NEW-POST-TEXT", newText:text} as const}
+export  const addPost = (postBody:string):AddPostAction=> {return {type:"ADD-POST", postBody} as const}
 export const setUserProfile = (profile:any)=> {return {type:"SET-USER-PROFILE", profile} as const}
 export const setUserStatus = (status:string) =>{return {type:"SET-USER-STATUS", status} as const}
 export const getUserProfile = (userId:number)=> {
@@ -74,15 +72,10 @@ export const profileReducer = (profileState: ProfileState = initialState, action
         case "ADD-POST":
             let newPost: IPost = {
                 id: 5,
-                message: profileState.newPostText,
+                message: action.postBody,
                 likeCount: 0
             };
-
-            updateProfileState.postsData = [...profileState.postsData, newPost];
-            updateProfileState.newPostText = "";
-            break;
-        case "UPDATE-NEW-POST-TEXT":
-            updateProfileState.newPostText = action.newText;
+            updateProfileState.postsData = [ newPost, ...profileState.postsData];
             break;
         case "SET-USER-PROFILE":
             return { ...profileState, profile: { ...profileState.profile, ...action.profile } } as ProfileState;

@@ -1,5 +1,5 @@
 
-import {DialogState, sendMessage, updateNewMessageText} from "../../redux/dialogReducer";
+import {DialogState, sendMessage} from "../../redux/dialogReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RotState} from "../../redux/Redux-Store";
@@ -8,8 +8,7 @@ import {compose} from "redux";
 
 export type MapStateToPropsType = {dialogPage:DialogState, isAuth:boolean}
 export type MapDispatchToPropsType = {
-    updateNewMessageText:(messageText:string)=> void
-    sendMessage:() => void
+    sendMessage:(messageBody:string) => void
 }
 
 let mapStateToProps = (state:RotState) : MapStateToPropsType=> {
@@ -17,6 +16,6 @@ let mapStateToProps = (state:RotState) : MapStateToPropsType=> {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {updateNewMessageText, sendMessage }),
+    connect(mapStateToProps, { sendMessage }),
     AuthRedirect
 )(Dialogs)

@@ -3,9 +3,7 @@ import classes from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
 import {IPost} from "../../../redux/profileReducer";
 import {MapDispatchToPropsType, MapStateToPropsType} from "./MyPostsContainer";
-
-
-
+import {AddPostForm, FormDataPost} from "./AddPostForm";
 export type MyPostsPropsType =  MapStateToPropsType & MapDispatchToPropsType
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props: MyPostsPropsType) => {
@@ -14,29 +12,14 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props: MyPostsPropsType) => 
         <Post key={el.id} message={el.message} likeCount={el.likeCount} />
     ));
 
-    const newPostElement: React.RefObject<HTMLTextAreaElement> = React.createRef();
-
-    const onAddPost = (): void => {
-        props.addPost();
-    };
-
-    const onPostChange = (): void => {
-        if (newPostElement.current) {
-            let text: string = newPostElement.current.value;
-            props.updateNewPostText(text);
-        }
-    };
-
+const addPost = (values:FormDataPost)=> {
+    props.addPost(values.postBody)
+}
     return (
         <div className={classes.postsBlock}>
             <h3>My Post</h3>
             <div>
-                <div>
-                    <textarea ref={newPostElement} onChange={onPostChange} value={props.profilePage.newPostText} />
-                </div>
-                <div>
-                    <button onClick={onAddPost}>Add Post</button>
-                </div>
+                <AddPostForm  onSubmit={addPost}/>
             </div>
             <div className={classes.posts}>
                 {postElement}

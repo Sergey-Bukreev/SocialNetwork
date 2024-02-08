@@ -1,11 +1,11 @@
 
-export type SendMessageAction = {type:"SEND-MESSAGE"}
-export type NewMessageTextAction = {type:"UPDATE-NEW-MESSAGE-TEXT", newMessage:string}
-export type DialogAction = SendMessageAction | NewMessageTextAction
+export type SendMessageAction = {type:"SEND-MESSAGE", messageBody:string}
+
+export type DialogAction = SendMessageAction
 export type DialogState = {
     dialogsData: { id: number; name: string }[];
     messageData: { id: number; message: string }[];
-    newMessageText:string
+
 }
 const initialState:DialogState = {
     dialogsData: [
@@ -22,21 +22,16 @@ const initialState:DialogState = {
         {id: 3, message: "How are you"},
         {id: 4, message: "IT-Incubator"},
     ],
-    newMessageText: "Write your message",
+
 }
-export const sendMessage = ():SendMessageAction => {return {type:"SEND-MESSAGE"}}
-export  const updateNewMessageText = (messageText:string):NewMessageTextAction => {return {type:"UPDATE-NEW-MESSAGE-TEXT", newMessage:messageText}}
+export const sendMessage = (messageBody:string):SendMessageAction => {return {type:"SEND-MESSAGE", messageBody}}
 export const dialogReducer = (dialogState: DialogState = initialState, action: DialogAction): DialogState => {
     let updateDialogState = { ...dialogState };
 
     switch (action.type) {
         case "SEND-MESSAGE":
-            let newMessage: { id: number; message: string } = { id: 5, message: dialogState.newMessageText };
+            let newMessage: { id: number; message: string } = { id: 5, message: action.messageBody };
             updateDialogState.messageData = [...dialogState.messageData, newMessage];
-            updateDialogState.newMessageText = "";
-            break;
-        case "UPDATE-NEW-MESSAGE-TEXT":
-            updateDialogState.newMessageText = action.newMessage;
             break;
         default:
             return updateDialogState;
