@@ -1,6 +1,9 @@
 import React from 'react';
 import { Field, reduxForm, InjectedFormProps } from "redux-form";
 
+import {required} from "../../../utils/validator/Validator";
+import {Input} from "../../common/formsControlls/textarea/textarea";
+
 export interface FormDataLogin {
     login: string;
     password: string;
@@ -12,13 +15,14 @@ const LoginForm: React.FC<InjectedFormProps<FormDataLogin>> = (props:InjectedFor
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={"input"} name={"login"} placeholder={"Логин"} />
+                <Field component={Input}
+                      validate={[required]} name={"login"} placeholder={"Логин"} />
             </div>
             <div>
-                <Field component={"input"} name={"password"} placeholder={"Пароль"} />
+                <Field component={Input} validate={[required]} name={"password"} placeholder={"Пароль"} />
             </div>
             <div>
-                <Field component={"input"} name={"rememberMe"} type={"checkbox"} /> Запомнить меня
+                <Field component={Input} validate={[required]} name={"rememberMe"} type={"checkbox"} /> Запомнить меня
             </div>
             <div>
                 <button type="submit">Войти</button>
