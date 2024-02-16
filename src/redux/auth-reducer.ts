@@ -1,16 +1,20 @@
 import { Action, Dispatch } from "redux";
 import { AuthAPI } from "../api/api";
-
+import {ThunkAction} from "redux-thunk";
+import {RotState} from "./Redux-Store";
+import {stopSubmit} from "redux-form";
 export type SetAuthUserDataAction = { type: "SET-USER-DATA"; data: UserDataType };
 export type UserDataType = { userId: number | null; email: string | null; login: string | null; isAuth: boolean };
 export type ActionAuthReducerType = SetAuthUserDataAction;
 
+type AppThunkAction = ThunkAction<void, RotState, undefined, Action>
 let initialState: UserDataType = {
     userId: null,
     email: null,
     login: null,
     isAuth: false,
 };
+
 
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): SetAuthUserDataAction => ({
     type: "SET-USER-DATA",
@@ -28,14 +32,12 @@ export const getAuthUserdata = () => {
     };
 };
 
-export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch<Action>) => {
+export const login = (email: string, password: string, rememberMe: boolean):AppThunkAction  => {
+    return (dispatch) => {
         AuthAPI.login(email, password, rememberMe).then((response) => {
             if (response.data.resultCode === 0) {
-                const { id, email, login } = response.data.data;
-                dispatch(setAuthUserData(id, email, login, true));
-
-            }
+                dispatch(getAuthUserdata());
+            } else {dispatch(stopSubmit("login", {_error:"some error"}))}
         });
     };
 };

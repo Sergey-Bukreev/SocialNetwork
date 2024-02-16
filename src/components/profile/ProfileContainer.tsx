@@ -12,7 +12,9 @@ import {compose} from "redux";
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if(!userId) {userId = 2}
+        console.log(userId)
+        if(!userId) {userId = this.props.authorizedUserID }
+        console.log(userId)
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
     }
@@ -31,7 +33,9 @@ let mapStateToProps = (state:RotState) => {
  return {
      profile: state.profilePage.profile,
      isAuth: state.auth.isAuth,
-     status:state.profilePage.status
+     status:state.profilePage.status,
+     authorizedUserID: state.auth.userId
+
  }
 }
 
