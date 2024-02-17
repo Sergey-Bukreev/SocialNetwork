@@ -9,15 +9,16 @@ import {RotState} from "../../redux/Redux-Store";
 interface LoginProps {
     isAuth: boolean;
     login: (email: string, password: string, rememberMe: boolean) => void;
+    authorizedUserID:any
 }
 
 const Login: React.FC<LoginProps> = (props:LoginProps) => {
     const onSubmit = (formData: FormDataLogin) => {
         props.login(formData.email, formData.password, formData.rememberMe);
     };
-    console.log(props.isAuth)
+
     if (props.isAuth) {
-        return <Redirect to={`/profile`} />;
+        return <Redirect to={`/profile/${props.authorizedUserID}`} />;
     }
 
     return (
@@ -28,8 +29,9 @@ const Login: React.FC<LoginProps> = (props:LoginProps) => {
     );
 };
 
-const mapStateToProps = (state: RotState):{isAuth:boolean} => ({
+const mapStateToProps = (state: RotState) => ({
     isAuth: state.auth.isAuth,
+    authorizedUserID: state.auth.userId
 });
 
 export default connect(mapStateToProps, { login })(Login);
