@@ -1,4 +1,4 @@
-import {UsersAPI} from "../api/api";
+import {UsersAPI} from "../../api/api";
 import {Action, Dispatch} from "redux";
 
 export type FollowAction = {type:"FOLLOW", userId:number}

@@ -9,7 +9,7 @@ import {HeaderContainer} from "./components/header/HeaderContainer";
 import Login from "./components/login/Login";
 import {connect} from "react-redux";
 import {RotState} from "./redux/Redux-Store";
-import {initializeAPP} from "./redux/app-reducer";
+import {initializeAPP} from "./redux/app-reducer/app-reducer";
 import {Preloader} from "./components/common/preloader/Preloader";
 
 

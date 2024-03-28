@@ -1,7 +1,7 @@
 import { Action, Dispatch } from "redux";
-import { AuthAPI } from "../api/api";
+import { AuthAPI } from "../../api/api";
 import {ThunkAction} from "redux-thunk";
-import {RotState} from "./Redux-Store";
+import {RotState} from "../Redux-Store";
 import {stopSubmit} from "redux-form";
 export type SetAuthUserDataAction = { type: "SET-USER-DATA"; data: UserDataType };
 export type UserDataType = { userId: number | null; email: string | null; login: string | null; isAuth: boolean };

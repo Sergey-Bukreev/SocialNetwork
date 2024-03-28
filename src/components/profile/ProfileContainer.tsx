@@ -1,11 +1,13 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {addPost, getUserProfile, getUserStatus, updateUserStatus} from "../../redux/profileReducer";
+import {addPost, getUserProfile, getUserStatus, updateUserStatus} from "../../redux/profile-reducer/profileReducer";
 import {RotState} from "../../redux/Redux-Store";
 import { withRouter} from "react-router-dom";
 import {AuthRedirect} from "../../hoc/AuthRedirect";
 import {compose} from "redux";
+import {getProfile, getStatus} from "../../redux/selectors/profile-selectors";
+import {getAuthorizedUserID, getIsAuth} from "../../redux/selectors/auth-seletor";
 
 
  class ProfileContainer extends React.Component<any, any> {
@@ -31,10 +33,10 @@ import {compose} from "redux";
 }
 let mapStateToProps = (state:RotState) => {
  return {
-     profile: state.profilePage.profile,
-     isAuth: state.auth.isAuth,
-     status:state.profilePage.status,
-     authorizedUserID: state.auth.userId
+     profile: getProfile(state),
+     isAuth: getIsAuth(state),
+     status:getStatus(state),
+     authorizedUserID: getAuthorizedUserID(state)
 
  }
 }

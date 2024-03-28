@@ -1,7 +1,7 @@
 
 import React from 'react';
 import classes from "./Users.module.css";
-import {IUsers} from "../../redux/usersReducer";
+import {IUsers} from "../../redux/users-reducer/usersReducer";
 import baseUserPhoto from "../../assets/images/baseUserPhoto.png";
 import {NavLink} from "react-router-dom";
 

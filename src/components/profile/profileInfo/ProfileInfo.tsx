@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from "./ProfileInfo.module.css";
 import {Preloader} from "../../common/preloader/Preloader";
-import {UserProfileType} from "../../../redux/profileReducer";
+import {UserProfileType} from "../../../redux/profile-reducer/profileReducer";
 import baseUserPhoto from "../../../assets/images/baseUserPhoto.png"
 import ProfileStatus from "./profileStatus/ProfileStatus";
 export type ProfileInfoPropsType = {

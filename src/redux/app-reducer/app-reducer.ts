@@ -1,7 +1,7 @@
 import { AnyAction} from "redux";
-import { getAuthUserdata} from "./auth-reducer";
+import { getAuthUserdata} from "../auth-reducer/auth-reducer";
 import { ThunkDispatch} from "redux-thunk";
-import {RotState} from "./Redux-Store";
+import {RotState} from "../Redux-Store";
 
 
 export type InitializedSuccessActionType = {type:"INITIALIZED-SUCCESS"}

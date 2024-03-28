@@ -1,10 +1,12 @@
 
-import {DialogState, sendMessage} from "../../redux/dialogReducer";
+import {DialogState, sendMessage} from "../../redux/dialog-reducer/dialogReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RotState} from "../../redux/Redux-Store";
 import {AuthRedirect} from "../../hoc/AuthRedirect";
 import {compose} from "redux";
+import {getIsAuth} from "../../redux/selectors/auth-seletor";
+import {getDialogPage} from "../../redux/selectors/dialog-selectors";
 
 export type MapStateToPropsType = {dialogPage:DialogState, isAuth:boolean}
 export type MapDispatchToPropsType = {
@@ -12,7 +14,7 @@ export type MapDispatchToPropsType = {
 }
 
 let mapStateToProps = (state:RotState) : MapStateToPropsType=> {
-    return {dialogPage:state.dialogPage, isAuth:state.auth.isAuth}
+    return {dialogPage:getDialogPage(state), isAuth:getIsAuth(state)}
 }
 
 export default compose<React.ComponentType>(

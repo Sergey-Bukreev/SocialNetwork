@@ -1,5 +1,5 @@
 import {Action, Dispatch} from "redux";
-import {ProfileAPI} from "../api/api";
+import {ProfileAPI} from "../../api/api";
 
 export type NewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
 export type AddPostAction = { type: "ADD-POST", postBody:string }

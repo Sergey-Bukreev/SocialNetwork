@@ -1,9 +1,10 @@
 import React from 'react';
 import { ReduxLoginForm, FormDataLogin } from './loginForm/LoginForm';
 import { connect } from 'react-redux';
-import { login } from '../../redux/auth-reducer';
+import { login } from '../../redux/auth-reducer/auth-reducer';
 import { Redirect } from 'react-router-dom';
 import {RotState} from "../../redux/Redux-Store";
+import {getAuthorizedUserID, getIsAuth} from "../../redux/selectors/auth-seletor";
 
 
 interface LoginProps {
@@ -30,8 +31,8 @@ const Login: React.FC<LoginProps> = (props:LoginProps) => {
 };
 
 const mapStateToProps = (state: RotState) => ({
-    isAuth: state.auth.isAuth,
-    authorizedUserID: state.auth.userId
+    isAuth: getIsAuth(state),
+    authorizedUserID: getAuthorizedUserID(state)
 });
 
 export default connect(mapStateToProps, { login })(Login);

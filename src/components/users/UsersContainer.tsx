@@ -1,11 +1,18 @@
 import { RotState,  } from '../../redux/Redux-Store';
-import {getUsers, setCurrentPage, setToggleFollowInProgress, UsersState, follow, unfollow} from '../../redux/usersReducer';
+import {getUsers, setCurrentPage, setToggleFollowInProgress, UsersState, follow, unfollow} from '../../redux/users-reducer/usersReducer';
 import { connect } from 'react-redux';
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {compose} from "redux";
 import {AuthRedirect} from "../../hoc/AuthRedirect";
+import {
+    getCurrentPage, getFollowInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersPage
+} from "../../redux/selectors/users-selecctors";
 
 
 export type MapStateToPropsType = {
@@ -42,14 +49,15 @@ export type MapStateToPropsType = {
     }
 
 }
+
 const mapStateToProps = (state: RotState):MapStateToPropsType => {
     return {
-        usersPage: state.usersPage,
-        pageSize: state.usersPage.pageSize,
-        totalUserCount: state.usersPage.totalUserCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followInProgress:state.usersPage.followInProgress
+        usersPage: getUsersPage(state),
+        pageSize: getPageSize(state),
+        totalUserCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followInProgress:getFollowInProgress(state)
     };
 };
 

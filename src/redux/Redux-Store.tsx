@@ -1,11 +1,11 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {profileReducer} from "./profileReducer";
-import {dialogReducer} from "./dialogReducer";
-import {usersReducer} from "./usersReducer";
-import {authReducer} from "./auth-reducer";
+import {profileReducer} from "./profile-reducer/profileReducer";
+import {dialogReducer} from "./dialog-reducer/dialogReducer";
+import {usersReducer} from "./users-reducer/usersReducer";
+import {authReducer} from "./auth-reducer/auth-reducer";
 import thunkMiddleware from "redux-thunk"
 import {reducer as formReducer} from "redux-form"
-import {appReducer} from "./app-reducer";
+import {appReducer} from "./app-reducer/app-reducer";
 let reducersButch = combineReducers({
     profilePage:profileReducer,
     dialogPage:dialogReducer,

@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
-import {IPost} from "../../../redux/profileReducer";
+import {IPost} from "../../../redux/profile-reducer/profileReducer";
 import {MapDispatchToPropsType, MapStateToPropsType} from "./MyPostsContainer";
 import {AddPostForm, FormDataPost} from "./AddPostForm";
 export type MyPostsPropsType =  MapStateToPropsType & MapDispatchToPropsType
