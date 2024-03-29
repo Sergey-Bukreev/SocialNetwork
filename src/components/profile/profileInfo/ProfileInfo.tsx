@@ -4,6 +4,7 @@ import {Preloader} from "../../common/preloader/Preloader";
 import {UserProfileType} from "../../../redux/profile-reducer/profileReducer";
 import baseUserPhoto from "../../../assets/images/baseUserPhoto.png"
 import ProfileStatus from "./profileStatus/ProfileStatus";
+import {ProfileStatusWithHooks} from "./profileStatus/ProfileStatusWithHooks";
 export type ProfileInfoPropsType = {
     profile:UserProfileType | null
     status:string | null
@@ -24,7 +25,7 @@ export const ProfileInfo:React.FC<ProfileInfoPropsType> = (props:ProfileInfoProp
             <div className={classes.descriptionBlock}>
                 <img src={props.profile.photos?.small || baseUserPhoto} alt="avatar" />
                 <p>{props.profile.fullName || "No name"}</p>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
                 <span>{props.profile.aboutMe || "No Information"}</span>
                 <div>Looking for a job: <input type={"checkbox"} checked={props.profile.lookingForAJob}/></div>
             </div>
