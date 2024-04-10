@@ -1,5 +1,5 @@
-// import { ProfileState, AddPostAction, NewPostTextAction, addPost, updateNewPostText, profileReducer } from "./profileReducer";
-//
+import { ProfileState, AddPostAction, NewPostTextAction, addPost, profileReducer } from "./profileReducer";
+
 // test("correct post should be added", () => {
 //     const startState: ProfileState = {
 //         postsData: [
@@ -7,7 +7,7 @@
 //             { id: 2, message: "Its my first post", likeCount: 25 },
 //             { id: 3, message: "Have a good Time", likeCount: 22 },
 //         ],
-//         newPostText: "Hello",
+//
 //         profile:null,
 //         status:""
 //     };
@@ -19,10 +19,10 @@
 //
 //     expect(startState).not.toEqual(endState)
 //     expect(endState.postsData).toHaveLength(startState.postsData.length + 1);
-//     expect(endState.newPostText).toEqual("");
-//     expect(endState.postsData[3].likeCount).toBe(0)
-// });
+//     expect(endState.postsData).toHaveLength(4)
 //
+// });
+
 // test("updating new post text should change the newPostText property", ()=> {
 //     const startState: ProfileState = {
 //         postsData: [
@@ -30,7 +30,7 @@
 //             { id: 2, message: "Its my first post", likeCount: 25 },
 //             { id: 3, message: "Have a good Time", likeCount: 22 },
 //         ],
-//         newPostText: "Hello",
+//
 //         profile:null,
 //         status:""
 //     };

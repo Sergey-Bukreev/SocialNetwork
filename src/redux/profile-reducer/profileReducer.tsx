@@ -39,30 +39,20 @@ export type UserPhotosType = {
 export  const addPost = (postBody:string):AddPostAction=> {return {type:"ADD-POST", postBody} as const}
 export const setUserProfile = (profile:any)=> {return {type:"SET-USER-PROFILE", profile} as const}
 export const setUserStatus = (status:string) =>{return {type:"SET-USER-STATUS", status} as const}
-export const getUserProfile = (userId:number)=> {
-    return (dispatch: Dispatch<Action>) => {
-        ProfileAPI.getProfile(userId).then(response => {
+
+export const getUserProfile = (userId:number)=> async (dispatch: Dispatch<Action>) => {
+       let response = await ProfileAPI.getProfile(userId)
             dispatch(setUserProfile(response.data))
-
-        })
-    }
 }
-export const getUserStatus = (userId:number)=> {
-    return (dispatch: Dispatch<Action>) => {
-        ProfileAPI.getStatus(userId).then(response => {
+export const getUserStatus = (userId:number)=> async (dispatch: Dispatch<Action>) => {
+       let response = await ProfileAPI.getStatus(userId)
             dispatch(setUserStatus(response.data))
-
-        })
-    }
 }
-export const updateUserStatus = (statusText:string)=> {
-    return (dispatch: Dispatch<Action>) => {
-        ProfileAPI.updateStatus(statusText).then(response => {
+export const updateUserStatus = (statusText:string)=> async (dispatch: Dispatch<Action>) => {
+       let response = await ProfileAPI.updateStatus(statusText)
             if(response.data.resultCode === 0){
                 dispatch(setUserStatus(statusText))
             }
-        })
-    }
 }
 
 export const profileReducer = (profileState: ProfileState = initialState, action: ProfileAction): ProfileState => {
