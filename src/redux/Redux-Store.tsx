@@ -17,3 +17,6 @@ let reducersButch = combineReducers({
 export let store = createStore(reducersButch, applyMiddleware(thunkMiddleware))
 
 export type RotState = ReturnType<typeof store.getState>
+
+//@ts-ignore
+window.store = store

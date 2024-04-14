@@ -16,6 +16,7 @@ export type ProfilePropsType = {
     savePhoto:(file:File) => void
 }
 export const Profile:React.FC<ProfilePropsType> = (props:ProfilePropsType) => {
+    console.log(props.isOwner)
     return (
         <div className={classes.content}>
             <ProfileInfo profile={props.profile} status={props.status}

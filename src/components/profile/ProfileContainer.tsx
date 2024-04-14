@@ -43,7 +43,7 @@ import {getAuthorizedUserID, getIsAuth} from "../../redux/selectors/auth-seletor
             <div >
                <Profile dispatch={this.props.dispatch} profile={this.props.profile}
                         status={this.props.status} updateStatus={this.props.updateUserStatus}
-                        isOwner = {!this.props.match.params.userId}
+                        isOwner={this.props.isOwner}
                         savePhoto={this.props.savePhoto}
                />
             </div>
@@ -52,11 +52,13 @@ import {getAuthorizedUserID, getIsAuth} from "../../redux/selectors/auth-seletor
 
 }
 let mapStateToProps = (state:RotState) => {
+
  return {
      profile: getProfile(state),
      isAuth: getIsAuth(state),
      status:getStatus(state),
-     authorizedUserID: getAuthorizedUserID(state)
+     authorizedUserID: getAuthorizedUserID(state),
+     isOwner: state.profilePage.profile?.userId === state.auth.userId
 
  }
 }

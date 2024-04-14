@@ -44,10 +44,7 @@ export const ProfileAPI = {
      savePhoto (file:File) {
           const formData = new FormData()
           formData.append("image", file)
-          return instance.put<{
-          data: UserPhotosType
-               resultCode: number
-          }>(`profile/photo`, FormData, {
+          return instance.put(`profile/photo`, formData, {
                headers:{
                     "Content-Type": "multipart/form-data"
                }

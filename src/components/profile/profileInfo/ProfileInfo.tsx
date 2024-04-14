@@ -23,6 +23,7 @@ export const ProfileInfo:React.FC<ProfileInfoPropsType> = (props:ProfileInfoProp
             props.savePhoto(event.target.files[0])
        }
    }
+
     return (
         <div >
             <div className={classes.content}>
@@ -30,7 +31,7 @@ export const ProfileInfo:React.FC<ProfileInfoPropsType> = (props:ProfileInfoProp
 
             </div>
             <div className={classes.descriptionBlock}>
-                <img src={props.profile.photos?.small || baseUserPhoto} alt="avatar" />
+                <img src={props.profile.photos?.large || baseUserPhoto} alt="avatar" />
                 <p>{props.profile.fullName || "No name"}</p>
                 {props.isOwner && <input type={"file"} onChange={onMainPhotoSelecct}/>}
 

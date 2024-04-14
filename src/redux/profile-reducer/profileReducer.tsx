@@ -5,7 +5,7 @@ export type NewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string 
 export type AddPostAction = { type: "ADD-POST", postBody:string }
 export type SetUserProfileAction = {type:"SET-USER-PROFILE", profile:ProfileState}
 export type SetUserStatusAction = {type:"SET-USER-STATUS", status:string}
-export type SavePhotoSaccess = {type:"SAVE_PHOTO_SACCESS", file:UserPhotosType}
+export type SavePhotoSaccess = {type:"SAVE_PHOTO_SACCESS", photos:UserPhotosType}
 export type ProfileAction = NewPostTextAction | AddPostAction | SetUserProfileAction | SetUserStatusAction | SavePhotoSaccess
 export interface IPost {id: number;message: string;likeCount: number;}
 export type ProfileState = {
@@ -16,7 +16,7 @@ export type ProfileState = {
 export type UserProfileType = {
     fullName: string | null
     aboutMe:string | null
-    id:number | null
+    userId:number | null
     lookingForAJob: boolean
     photos: UserPhotosType
     followed:boolean
@@ -40,10 +40,7 @@ export type UserPhotosType = {
 export  const addPost = (postBody:string):AddPostAction=> {return {type:"ADD-POST", postBody} as const}
 export const setUserProfile = (profile:any)=> {return {type:"SET-USER-PROFILE", profile} as const}
 export const setUserStatus = (status:string) =>{return {type:"SET-USER-STATUS", status} as const}
-export const savePhotoSuccess = (file:UserPhotosType) => {
-
-    return {type:"SAVE_PHOTO_SACCESS", file} as const
-}
+export const savePhotoSuccess = (photos:UserPhotosType) => {return {type:"SAVE_PHOTO_SACCESS", photos} as const}
 
 export const getUserProfile = (userId:number)=> async (dispatch: Dispatch<Action>) => {
        let response = await ProfileAPI.getProfile(userId)
@@ -59,11 +56,13 @@ export const updateUserStatus = (statusText:string)=> async (dispatch: Dispatch<
                 dispatch(setUserStatus(statusText))
             }
 }
-export const savePhoto = (file:any) => async (dispatch: Dispatch<Action>) => {
+export const savePhoto = (file:File) => async (dispatch: Dispatch<Action>, userId:number) => {
     let response = await ProfileAPI.savePhoto(file)
     if(response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data))
+        dispatch(savePhotoSuccess(response.data.data.photos))
+
     }
+
 }
 
 export const profileReducer = (profileState: ProfileState = initialState, action: ProfileAction): ProfileState => {
@@ -83,7 +82,7 @@ export const profileReducer = (profileState: ProfileState = initialState, action
         case "SET-USER-STATUS":
             return {...profileState, status: action.status } as ProfileState
         case "SAVE_PHOTO_SACCESS":
-            return {...profileState, profile:profileState.profile?{...profileState.profile , photos:action.file}: initialState.profile}
+            return {...profileState, profile:profileState.profile?{...profileState.profile , photos:action.photos}: initialState.profile}
 
         default:
             return updateProfileState;
