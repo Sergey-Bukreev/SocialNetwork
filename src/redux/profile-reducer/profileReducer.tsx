@@ -1,5 +1,8 @@
 import {Action, Dispatch} from "redux";
 import {ProfileAPI} from "../../api/api";
+import {RotState} from "../Redux-Store";
+import {stopSubmit} from "redux-form";
+import {ThunkAction} from "redux-thunk";
 
 export type NewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
 export type AddPostAction = { type: "ADD-POST", postBody:string }
@@ -7,6 +10,7 @@ export type SetUserProfileAction = {type:"SET-USER-PROFILE", profile:ProfileStat
 export type SetUserStatusAction = {type:"SET-USER-STATUS", status:string}
 export type SavePhotoSaccess = {type:"SAVE_PHOTO_SACCESS", photos:UserPhotosType}
 export type ProfileAction = NewPostTextAction | AddPostAction | SetUserProfileAction | SetUserStatusAction | SavePhotoSaccess
+export type ProfileThunkAction = ThunkAction<void, RotState, undefined, Action>
 export interface IPost {id: number;message: string;likeCount: number;}
 export type ProfileState = {
     postsData: IPost[];
@@ -18,8 +22,14 @@ export type UserProfileType = {
     aboutMe:string | null
     userId:number | null
     lookingForAJob: boolean
+    lookingForAJobDescription:string | null,
+    contacts: ContactsType
     photos: UserPhotosType
     followed:boolean
+}
+
+export type ContactsType = {
+    [key: string]: string | null
 }
 export type UserPhotosType = {
     small:string | null
@@ -64,6 +74,21 @@ export const savePhoto = (file:File) => async (dispatch: Dispatch<Action>, userI
     }
 
 }
+export const saveProfile = (profile:UserProfileType):ProfileThunkAction => async (dispatch, getState:()=> RotState) => {
+const userId = getState().auth.userId
+    let response = await ProfileAPI.saveProfile(profile)
+    if(response.data.resultCode === 0) {
+       if(userId) {
+           dispatch(getUserProfile(userId))
+       }
+
+    }
+    else {
+        dispatch(stopSubmit("edit profile", {_error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
+    }
+}
+
 
 export const profileReducer = (profileState: ProfileState = initialState, action: ProfileAction): ProfileState => {
     let updateProfileState = { ...profileState };

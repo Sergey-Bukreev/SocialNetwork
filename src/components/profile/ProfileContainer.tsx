@@ -5,7 +5,7 @@ import {
     addPost,
     getUserProfile,
     getUserStatus,
-    savePhoto,
+    savePhoto, saveProfile,
     updateUserStatus
 } from "../../redux/profile-reducer/profileReducer";
 import {RotState} from "../../redux/Redux-Store";
@@ -45,6 +45,7 @@ import {getAuthorizedUserID, getIsAuth} from "../../redux/selectors/auth-seletor
                         status={this.props.status} updateStatus={this.props.updateUserStatus}
                         isOwner={this.props.isOwner}
                         savePhoto={this.props.savePhoto}
+                        saveProfile={this.props.saveProfile}
                />
             </div>
         );
@@ -64,7 +65,7 @@ let mapStateToProps = (state:RotState) => {
 }
 
 
-export default compose<React.ComponentType> ( connect (mapStateToProps,{getUserProfile, addPost, getUserStatus, updateUserStatus, savePhoto}),
+export default compose<React.ComponentType> ( connect (mapStateToProps,{getUserProfile, addPost, getUserStatus, updateUserStatus, savePhoto, saveProfile}),
                                              withRouter,
                                             AuthRedirect
                                             ) (ProfileContainer)

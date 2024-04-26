@@ -4,6 +4,7 @@ import {ProfileInfo} from "./profileInfo/ProfileInfo";
 import {Action} from "redux"
 
 import {MyPostsContainer} from "./myPosts/MyPostsContainer";
+import {UserProfileType} from "../../redux/profile-reducer/profileReducer";
 
 
 
@@ -14,6 +15,7 @@ export type ProfilePropsType = {
     updateStatus:(statusText:string)=> void
     isOwner:boolean
     savePhoto:(file:File) => void
+    saveProfile: (profile:UserProfileType) =>Promise<void>
 }
 export const Profile:React.FC<ProfilePropsType> = (props:ProfilePropsType) => {
     console.log(props.isOwner)
@@ -23,6 +25,7 @@ export const Profile:React.FC<ProfilePropsType> = (props:ProfilePropsType) => {
                          updateStatus={props.updateStatus}
                          isOwner={props.isOwner}
                          savePhoto={props.savePhoto}
+                         saveProfile={props.saveProfile}
             />
             <MyPostsContainer/>
         </div>
