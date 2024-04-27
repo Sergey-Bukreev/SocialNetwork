@@ -6,3 +6,6 @@ export const getIsAuth = (state:RotState) => {
 export const getAuthorizedUserID = (state:RotState) => {
     return state.auth.userId
 }
+export const getCaptchaUrl = (state:RotState) => {
+    return state.auth.captchaUrl
+}

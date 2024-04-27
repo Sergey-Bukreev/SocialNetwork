@@ -4,18 +4,19 @@ import { connect } from 'react-redux';
 import { login } from '../../redux/auth-reducer/auth-reducer';
 import { Redirect } from 'react-router-dom';
 import {RotState} from "../../redux/Redux-Store";
-import {getAuthorizedUserID, getIsAuth} from "../../redux/selectors/auth-seletor";
+import {getAuthorizedUserID, getCaptchaUrl, getIsAuth} from "../../redux/selectors/auth-seletor";
 
 
-interface LoginProps {
+export interface LoginProps {
     isAuth: boolean;
-    login: (email: string, password: string, rememberMe: boolean) => void;
+    login: (email: string, password: string, rememberMe: boolean, captcha:string) => void;
     authorizedUserID:any
+    captchaUrl:string | null
 }
 
 const Login: React.FC<LoginProps> = (props:LoginProps) => {
     const onSubmit = (formData: FormDataLogin) => {
-        props.login(formData.email, formData.password, formData.rememberMe);
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
     };
 
     if (props.isAuth) {
@@ -25,14 +26,15 @@ const Login: React.FC<LoginProps> = (props:LoginProps) => {
     return (
         <div>
             <h1>LOGIN</h1>
-            <ReduxLoginForm onSubmit={onSubmit} />
+            <ReduxLoginForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
         </div>
     );
 };
 
 const mapStateToProps = (state: RotState) => ({
     isAuth: getIsAuth(state),
-    authorizedUserID: getAuthorizedUserID(state)
+    authorizedUserID: getAuthorizedUserID(state),
+    captchaUrl: getCaptchaUrl(state)
 });
 
 export default connect(mapStateToProps, { login })(Login);
