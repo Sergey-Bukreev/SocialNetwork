@@ -1,0 +1,47 @@
+
+.formControl {
+    margin-bottom: 15px;
+}
+
+.formSummaryError {
+    color: red;
+    margin-bottom: 15px;
+}
+
+/* ProfileForm.module.css */
+
+
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.formControl {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.inputField,
+.textareaField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.checkboxLabel {
+    margin-left: 10px; /* Отступ для чекбокса */
+}
+
+¨

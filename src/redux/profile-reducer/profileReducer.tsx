@@ -37,9 +37,31 @@ export type UserPhotosType = {
 }
  export let initialState: ProfileState = {
      postsData: [
-         {id: 1, message: "Hi, how are you", likeCount: 15},
-         {id: 2, message: "Its my first post", likeCount: 25},
-         {id: 3, message: "Have a good Time", likeCount: 22},
+         {
+             id: 1,
+             message: "Just implemented a binary search tree algorithm in JavaScript. It's amazing how efficient this data structure is for searching and organizing data!",
+             likeCount: 42
+         },
+         {
+             id: 2,
+             message: "Started learning React Hooks today. They provide such a clean and concise way to manage state and side effects in functional components. Loving it so far!",
+             likeCount: 55
+         },
+         {
+             id: 3,
+             message: "Spent the whole day debugging a tricky memory leak issue in my Node.js application. Finally found the culprit - circular references in my data structures. Phew, what a relief!",
+             likeCount: 38
+         },
+         {
+             id: 3,
+             message: "Spent the whole day debugging a tricky memory leak issue in my Node.js application. Finally found the culprit - circular references in my data structures. Phew, what a relief!",
+             likeCount: 38
+         },
+         {
+             id: 3,
+             message: "Spent the whole day debugging a tricky memory leak issue in my Node.js application. Finally found the culprit - circular references in my data structures. Phew, what a relief!",
+             likeCount: 38
+         },
 
      ],
 

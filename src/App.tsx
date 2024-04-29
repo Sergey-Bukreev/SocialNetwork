@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css';
-import {Navbar} from "./components/navbar/Navbar";
-import { Route} from "react-router-dom";
-import {HeaderContainer} from "./components/header/HeaderContainer";
-import Login from "./components/login/Login";
+import {Navbar} from "./layout/navbar/Navbar";
+import {Redirect, Route, Switch} from "react-router-dom";
+import {HeaderContainer} from "./layout/header/HeaderContainer";
+import Login from "./layout/login/Login";
 import {connect} from "react-redux";
 import {RotState} from "./redux/Redux-Store";
 import {initializeAPP} from "./redux/app-reducer/app-reducer";
-import {Preloader} from "./components/common/preloader/Preloader";
-const DialogsContainer = React.lazy(()=>import("./components/dialogs/DialogsContainer"))
-const ProfileContainer = React.lazy(() => import("./components/profile/ProfileContainer"))
-const UsersContainer = React.lazy(()=> import("./components/users/UsersContainer"))
+import {Preloader} from "./components/preloader/Preloader";
+const DialogsContainer = React.lazy(()=>import("./layout/dialogs/DialogsContainer"))
+const ProfileContainer = React.lazy(() => import("./layout/profile/ProfileContainer"))
+const UsersContainer = React.lazy(()=> import("./layout/users/UsersContainer"))
 
 export type StatePropsType = MapStateToPropsType & {  initializeAPP: ()=>void   }
 
@@ -30,11 +30,16 @@ class App extends React.Component<StatePropsType, {}> {
                     <Navbar/>
                     <div className="app-wrapper-content">
                         <React.Suspense fallback={<Preloader/>}>
-                            <Route path="/dialogs" render={() => <DialogsContainer/>}/>
-                            <Route path="/profile/:userId" render={() => <ProfileContainer/>}/>
-                            <Route render={() => <UsersContainer/>} path={"/users"}/>
+                            <Switch>
+
+                                <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                                <Route path="/profile/:userId" render={() => <ProfileContainer/>}/>
+                                <Route render={() => <UsersContainer/>} path={"/users"}/>
+                                <Route render={() => <Login/>} path={"/login"}/>
+
+                            </Switch>
                         </React.Suspense>
-                        <Route render={() => <Login/>} path={"/login"}/>
+
                     </div>
                 </div>
 

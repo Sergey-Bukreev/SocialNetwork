@@ -1,0 +1,58 @@
+.header {
+    grid-area: h;
+    background-color: #fff;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border: 1px solid #000;
+}
+
+.header img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #fff;
+    border-radius: 20px;
+}
+.userblock {
+    font-weight: 400;
+    font-size: .875rem;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+
+}
+.title {
+    font-size: 26px;
+    font-family: BB-Regular,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: 0;
+}
+
+.loginBlock {
+    display: flex;
+    align-items: center;
+}
+
+.loginBlock button {
+    color: #000;
+    background-color: #fff;
+    border: none;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+
+    font-size: 16px;
+    font-family: BB-Regular,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: 0;
+}
+
+.loginBlock button:hover {
+    border: 1px solid #000;
+    border-radius: 5px;
+}
