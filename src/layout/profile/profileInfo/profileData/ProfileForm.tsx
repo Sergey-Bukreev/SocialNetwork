@@ -6,12 +6,6 @@ import { UserProfileType} from "../../../../redux/profile-reducer/profileReducer
 import classes from "../../../../components/formsControlls/FormControll.module.css";
 
 
-
-
-
-
-
-
 export const ProfileDataForm:React.FC<InjectedFormProps<UserProfileType>> = (props:InjectedFormProps<UserProfileType>) => {
     const { handleSubmit,error } = props;
     return (
@@ -65,7 +59,7 @@ export const ProfileDataForm:React.FC<InjectedFormProps<UserProfileType>> = (pro
                     })}
             </div>
             <div>
-                <button >Save</button>
+                <button className={classes.submithButton}>Save</button>
             </div>
 
         </form>

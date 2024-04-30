@@ -10,11 +10,11 @@ export interface FormDataPost {
 export const PostForm:React.FC<InjectedFormProps<FormDataPost>> = (props:InjectedFormProps<FormDataPost>) => {
     return (
         <form onSubmit={props.handleSubmit} className={classes.form}>
-            <div >
+            <div className={classes.inputWrapper}>
                 <Field className={classes.postField} name={"postBody"} component={Textarea}  placeholder={"Write your text"} validate={[required, maxLength100 ]}/>
             </div>
             <div>
-                <button type={"submit"}>Add Post</button>
+                <button type={"submit"} className={classes.addPostButton}>Add Post</button>
             </div>
         </form>
     );
