@@ -5,6 +5,7 @@ import { login } from '../../redux/auth-reducer/auth-reducer';
 import { Redirect } from 'react-router-dom';
 import {RotState} from "../../redux/Redux-Store";
 import {getAuthorizedUserID, getCaptchaUrl, getIsAuth} from "../../redux/selectors/auth-seletor";
+import classes from "./Login.module.css"
 
 
 export interface LoginProps {
@@ -24,9 +25,11 @@ const Login: React.FC<LoginProps> = (props:LoginProps) => {
     }
 
     return (
-        <div>
-            <h1>LOGIN</h1>
-            <ReduxLoginForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+        <div className={classes.loginContainer}>
+            <div className={classes.loginFormWrapper}>
+                <h1 className={classes.loginTitle}>LOGIN</h1>
+                <ReduxLoginForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+            </div>
         </div>
     );
 };

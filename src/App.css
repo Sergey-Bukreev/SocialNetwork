@@ -1,22 +1,24 @@
 .app-wrapper {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   max-width: 1200px;
-
-  grid-template-areas: "h h" "n c";
-
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
-  grid-gap: 10px ;
+  gap: 10px;
 }
 
-.app-wrapper-content {
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
 
-    /*grid-area: c;*/
-    /*background-color: aliceblue;*/
-    /*border: 1px solid black;*/
-
-
+.app-main {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  max-width: 1200px;
+  gap: 10px;
 }
 
 

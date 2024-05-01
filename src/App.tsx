@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./layout/navbar/Navbar";
-import {Redirect, Route, Switch} from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import {HeaderContainer} from "./layout/header/HeaderContainer";
 import Login from "./layout/login/Login";
 import {connect} from "react-redux";
@@ -27,27 +27,34 @@ class App extends React.Component<StatePropsType, {}> {
 
                 <div className="app-wrapper">
                     <HeaderContainer/>
-                    <Navbar/>
-                    <div className="app-wrapper-content">
-                        <React.Suspense fallback={<Preloader/>}>
-                            <Switch>
 
-                                <Route path="/dialogs" render={() => <DialogsContainer/>}/>
-                                <Route path="/profile/:userId" render={() => <ProfileContainer/>}/>
-                                <Route render={() => <UsersContainer/>} path={"/users"}/>
-                                <Route render={() => <Login/>} path={"/login"}/>
+                        <div className="app-main">
 
-                            </Switch>
-                        </React.Suspense>
+                            {this.props.isAuth && <Navbar/>}
 
-                    </div>
+                            <React.Suspense fallback={<Preloader/>}>
+                                <Switch>
+
+                                    <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                                    <Route path="/profile/:userId" render={() => <ProfileContainer/>}/>
+                                    <Route render={() => <UsersContainer/>} path={"/users"}/>
+                                    <Route render={() => <Login/>} path={"/login"}/>
+
+                                </Switch>
+                            </React.Suspense>
+
+                        </div>
+
+
                 </div>
 
         );
     }
 }
 const mapStateToProps = (state:RotState)=>({
-    initialized: state.app.initialized
+    initialized: state.app.initialized,
+    isAuth: state.auth.isAuth
+
 })
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
