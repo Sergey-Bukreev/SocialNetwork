@@ -4,12 +4,16 @@
     margin-top: 20px;
     padding: 20px;
     background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    /*border-radius: 10px;*/
+    /*box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);*/
 }
 
 .addPostForm {
     margin-bottom: 20px;
+    width: 100%;
+}
+.form {
+
 }
 
 .posts {
@@ -41,21 +45,25 @@
     color: #333333;
 }
 
-
+.inputWrapper {
+    display: flex;
+}
 .postField {
-    width: calc(100% - 50px); /* Ширина поля - 50px для учета ширины кнопки */
+    /*width: calc(100% - 50px); !* Ширина поля - 50px для учета ширины кнопки *!*/
+    width: 100%;
+
     padding: 10px;
-    border: 1px solid #ccc; /* Цвет рамки */
+    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    font-family: 'Balenciaga Display', sans-serif; /* Шрифт Balenciaga Display */
+
     color: #333333; /* Цвет текста */
     background-color: #f9f9f9; /* Цвет фона */
     box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1); /* Тень внутри поля */
 }
 
 .postField::placeholder {
-    color: #999999; /* Цвет плейсхолдера */
+    color: #999999;
 }
 .addPostButton {
 
@@ -68,7 +76,7 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    font-family: 'Balenciaga Display', sans-serif;
+
     font-size: 14px;
     margin: 0 auto;
 }

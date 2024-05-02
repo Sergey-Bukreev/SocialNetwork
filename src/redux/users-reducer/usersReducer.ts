@@ -14,7 +14,7 @@ export type IUsers ={ name: string, id: number, uniqueUrlName: null |string, pho
 export type UsersState = { usersData: IUsers[], pageSize:number, totalUserCount:number, currentPage:number, isFetching:boolean, followInProgress: number[]}
 export let initialState:UsersState = {
     usersData: [],
-    pageSize: 100,
+    pageSize: 30,
     totalUserCount: 0,
     currentPage:3,
     isFetching: true,

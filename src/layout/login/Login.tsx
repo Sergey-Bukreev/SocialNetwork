@@ -26,8 +26,9 @@ const Login: React.FC<LoginProps> = (props:LoginProps) => {
 
     return (
         <div className={classes.loginContainer}>
+
             <div className={classes.loginFormWrapper}>
-                <h1 className={classes.loginTitle}>LOGIN</h1>
+                <h2 className={classes.loginTitle}>LOGIN</h2>
                 <ReduxLoginForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
             </div>
         </div>

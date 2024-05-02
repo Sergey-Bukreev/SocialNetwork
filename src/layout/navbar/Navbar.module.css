@@ -1,6 +1,6 @@
 .nav {
     width: 200px;
-    max-width: 200px;
+    /*max-width: 200px;*/
     background-color: #fff;
     display: flex;
 
@@ -20,7 +20,7 @@
     line-height: 140%;
     letter-spacing: 0;
     display: inline-block;
-
+    border: 1px solid inherit;
     transition: color 0.3s ease;
 }
 
