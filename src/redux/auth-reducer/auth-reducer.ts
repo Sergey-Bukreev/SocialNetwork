@@ -1,5 +1,5 @@
 import { Action, Dispatch } from "redux";
-import {AuthAPI, SecurityAPI} from "../../api/api";
+import {AuthAPI, SecurityAPI, setAuthToken} from "../../api/api";
 import {ThunkAction} from "redux-thunk";
 import {RotState} from "../Redux-Store";
 import {stopSubmit} from "redux-form";
@@ -37,6 +37,9 @@ export const getAuthUserdata = () => async (dispatch: Dispatch<Action>) => {
 export const login = (email: string, password: string, rememberMe: boolean, captcha:string | null):AuthThunkAction  => async (dispatch) => {
        let response =  await AuthAPI.login(email, password, rememberMe, captcha)
             if (response.data.resultCode === 0) {
+                const token = response.data.data.token
+                localStorage.setItem('token', token);
+                setAuthToken(token)
                 dispatch(getAuthUserdata());
             } else {
                 if(response.data.resultCode === 10) {
@@ -51,7 +54,10 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 export const logout = () => async (dispatch: Dispatch<Action>) => {
       let response = await  AuthAPI.logout()
             if (response.data.resultCode === 0) {
+                setAuthToken(null)
+                localStorage.removeItem('token')
                 dispatch(setAuthUserData(null, null, null, false, null));
+
             }
     };
 

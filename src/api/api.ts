@@ -1,13 +1,22 @@
 import axios, {AxiosInstance} from "axios";
 import {UserPhotosType, UserProfileType} from "../redux/profile-reducer/profileReducer";
+const tokenApi = localStorage.getItem('token');
 
 const instance:AxiosInstance = axios.create({
      baseURL:"https://social-network.samuraijs.com/api/1.0/",
      withCredentials:true,
      headers: {
-          "API-KEY": "115b29b2-aaf9-4fe4-b58b-b4e6116bf632"
+          "API-KEY": "0b0814e6-4fea-4499-b69a-f1627aad515f",
+          'Authorization': tokenApi ? `Bearer ${tokenApi}` : ''
      }
 })
+export const setAuthToken = (token: string | null) => {
+     if (token) {
+          instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+     } else {
+          delete instance.defaults.headers.common['Authorization'];
+     }
+};
 export const UsersAPI = {
      getUsers (currentPage:number, pageSize:number)  {
           return instance.get( `users?page=${currentPage}&count=${pageSize}`, ).then(response => response.data)
